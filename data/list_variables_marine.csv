@@ -1,0 +1,13 @@
+code,variable,family
+HDI,HDI,Socioeconomic
+FisheriesDep,Fisheries dependency,Socioeconomic
+ChloMean,Cholorophyl A,Environment
+SSTMean,Mean STT,Environment
+TravelTime,Travel Time,Socioeconomic
+MeanBathy,Mean Bathymetry,Environment
+ConflictScore,Conflict Score,Socioeconomic
+DistanceToMainland,Distance to mainland,Environment
+Voice,Voice,Socioeconomic
+DistanceKm,Distance to sea mountain,Environment
+Island,Island,Environment
+NGO,NGO,Socioeconomic
