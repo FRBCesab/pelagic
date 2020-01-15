@@ -36,6 +36,9 @@ pc <- dudi.pca(dataIUCNATP_All_selected[,-13], scannf=FALSE, nf = 2)
 # The data are then ready to be used in ENFA to define 'ecologically more meaningful' axes:
 en <- adehabitatHS::enfa(pc, c(dataIUCNATP_All$catMPA), scan=FALSE)
 
+dataIUCNATP_All_selected$Axis_1 <- en$li[,1]
+dataIUCNATP_All_selected$Axis_2 <- en$li[,2]
+
 
 
 spa<-subset(dataIUCNATP_All_selected,dataIUCNATP_All_selected$catPA=="NO TAKE")
