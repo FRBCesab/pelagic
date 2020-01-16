@@ -8,6 +8,6 @@ MeanBathy,Mean Bathymetry,Environment
 ConflictScore,Conflict Score,Socioeconomic
 DistanceToMainland,Distance to mainland,Environment
 Voice,Voice,Socioeconomic
-DistanceKm,Distance to seamount,Environment
+Distance,Distance to seamount,Environment
 Island,Island,Environment
 NGO,NGO,Socioeconomic
