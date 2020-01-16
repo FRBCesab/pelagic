@@ -26,7 +26,8 @@ options(warn = -1)
 
 pkgs <- c(
   "ade4",
-  "adehabitatHS"
+  "adehabitatHS",
+  "readr"
 )
 
 nip <- pkgs[!(pkgs %in% installed.packages())]
@@ -128,6 +129,9 @@ rm(list = c("fig_names", "fig_vars", "figs"))
 
 groupes <- c("marine", "terrestrial")
 
+pca_list  <- list()
+enfa_list <- list()
+
 
 
 #'  -------------------------------------------------------------------------   @ColorsParameters
@@ -164,9 +168,17 @@ par_family <- "serif"
 
 #'  -------------------------------------------------------------------------   @LoadAllData
 
-datas      <- list()
-datas[[1]] <- get(load(file = file.path(path_data, "dataIUCNAMP_All.RData")))
-datas[[2]] <- get(load(file = file.path(path_data, "dataIUCNATP_All.RData")))
+datas        <- vector("list", 2)
+datas[[1]]   <- get(load(file = file.path(path_data, "dataIUCNAMP_All.RData")))
+datas[[2]]   <- get(load(file = file.path(path_data, "dataIUCNATP_All.RData")))
 names(datas) <- groupes
 
 rm(list = c("dataIUCNAMP_All", "dataIUCNATP_All"))
+
+vars_list        <- vector("list", 2)
+vars_list[[1]]   <- readr::read_csv(file.path(path_data, "list_variables_marine.csv"))
+vars_list[[2]]   <- readr::read_csv(file.path(path_data, "list_variables_terrestrial.csv"))
+names(vars_list) <- groupes
+
+vars_coords        <- vector("list", 2)
+names(vars_coords) <- groupes
