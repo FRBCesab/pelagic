@@ -140,6 +140,10 @@ enfa_list <- list()
 color_mar     <- "#ff4500"             # ~ Red
 color_ter     <- "#00afbb"            # ~ Turquoise
 
+light_grey    <- "#888888"
+dark_grey     <- "#333333"
+par_fg        <- "#666666"
+
 color_grp        <- c(color_mar, color_ter)
 names(color_grp) <- groupes
 
