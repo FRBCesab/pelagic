@@ -6,21 +6,21 @@ for (group in groupes) {
 
 #'  -------------------------------------------------------------------------   @TransformData
 
-
-  datas[[group]][ , "catPA"]      <- as.factor(datas[[group]][ , "catPA"])
   datas[[group]][ , "NGO"]        <- log10(datas[[group]][ , "NGO"] + 1)
 
   if (group == "marine") {
 
-    datas[[group]][ , "Distance"] <- log10(datas[[group]][ , "Distance"] + 1)
-    datas[[group]][ , "MeanBathy"]  <- log10(-1 * (datas[[group]][ , "MeanBathy"]) + 1)
+    datas[[group]][ , "catPA"]     <- as.factor(datas[[group]][ , "catPA"])
+    datas[[group]][ , "Distance"]  <- log10(datas[[group]][ , "Distance"] + 1)
+    datas[[group]][ , "MeanBathy"] <- log10(-1 * (datas[[group]][ , "MeanBathy"]) + 1)
 
   } else {
 
+    datas[[group]][ , "catPA"]    <- as.factor(datas[[group]][ , "catMPA"])
     datas[[group]][ , "Altitude"] <- log10(datas[[group]][ , "Altitude"] + 1)
     datas[[group]][ , "NatRes"]   <-
-      datas[[group]][ , "Naturalresourcesrents"] /
-      max(datas[[group]][ , "Naturalresourcesrents"]) +
+      datas[[group]][ , "NatRes"] /
+      max(datas[[group]][ , "NatRes"]) +
       datas[[group]][ , "AgricultureDep"]
   }
 
