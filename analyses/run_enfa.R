@@ -10,13 +10,13 @@ for (group in groupes) {
 
   if (group == "marine") {
 
-    datas[[group]][ , "catPA"]     <- as.factor(datas[[group]][ , "catPA"])
+    datas[[group]][ , "catPA"]     <- factor(datas[[group]][ , "catPA"], levels = c('NPA','MPA','NO TAKE'), ordered = TRUE)
     datas[[group]][ , "Distance"]  <- log10(datas[[group]][ , "Distance"] + 1)
     datas[[group]][ , "MeanBathy"] <- log10(-1 * (datas[[group]][ , "MeanBathy"]) + 1)
 
   } else {
 
-    datas[[group]][ , "catPA"]    <- as.factor(datas[[group]][ , "catMPA"])
+    datas[[group]][ , "catPA"]    <- factor(datas[[group]][ , "catMPA"], levels = c('NPA','TPA','NO TAKE'), ordered = TRUE)
     datas[[group]][ , "Altitude"] <- log10(datas[[group]][ , "Altitude"] + 1)
     datas[[group]][ , "NatRes"]   <-
       datas[[group]][ , "NatRes"] /

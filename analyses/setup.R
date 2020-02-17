@@ -27,7 +27,10 @@ options(warn = -1)
 pkgs <- c(
   "ade4",
   "adehabitatHS",
-  "readr"
+  "readr",
+  "ggplot2",
+  "ggalt",
+  "gridExtra"
 )
 
 nip <- pkgs[!(pkgs %in% installed.packages())]
@@ -97,13 +100,11 @@ rm(list = c("dir_names", "dir_vars", "dirs"))
 
 
 fig_names <- c(
-  "Figure_1",
-  "Figure_2"
+  "Figure_1_ggplot"
 )
 
 fig_vars  <- c(
-  "figname1",
-  "figname2"
+  "figname1"
 )
 
 figs <- lapply(
@@ -137,36 +138,22 @@ enfa_list <- list()
 #'  -------------------------------------------------------------------------   @ColorsParameters
 
 
-color_mar     <- "#ff4500"             # ~ Red
-color_ter     <- "#00afbb"            # ~ Turquoise
+grey_light    <- "#888888"
+grey_dark     <- "#333333"
 
-light_grey    <- "#888888"
-dark_grey     <- "#333333"
 par_fg        <- "#666666"
 
-color_grp        <- c(color_mar, color_ter)
-names(color_grp) <- groupes
+color_pas        <- vector("list", 2)
+names(color_pas) <- groupes
 
-n_classes <- 8
+color_pas[["marine"]]             <- c("#c3c3c3", "#74a9cf", "#034e7b")
+names(color_pas[["marine"]])      <- c("NPA", "MPA", "NO TAKE")
 
-# color_mnpa <- colorRampPalette(c("#", "#"))(n_classes)
-# color_mrpa <- colorRampPalette(c("#", "#"))(n_classes)
-# color_mspa <- colorRampPalette(c("#", "#"))(n_classes)
+color_pas[["terrestrial"]]        <- c("#c3c3c3", "#fec44f", "#8c2d04")
+names(color_pas[["terrestrial"]]) <- c("NPA", "TPA", "NO TAKE")
 
-# color_tnpa <- colorRampPalette(c("#", "#"))(n_classes)
-# color_trpa <- colorRampPalette(c("#", "#"))(n_classes)
-# color_tspa <- colorRampPalette(c("#", "#"))(n_classes)
-
-
-alpha      <- "88"
-par_family <- "serif"
-
-
-
-#'  -------------------------------------------------------------------------   @Fig1Parameters
-
-
-
+alpha  <- 0.44
+family <- "serif"
 
 
 
@@ -186,3 +173,45 @@ names(vars_list) <- groupes
 
 vars_coords        <- vector("list", 2)
 names(vars_coords) <- groupes
+
+
+
+#'  -------------------------------------------------------------------------   @GGPlotTheme
+
+theme_empty <- theme(
+  axis.title.x       = element_blank(),
+  axis.title.y       = element_blank(),
+  axis.text.x        = element_text(
+    family = family,
+    face   = "plain",
+    colour = grey_dark,
+    size   = 12
+  ),
+  axis.text.y        = element_blank(),
+  axis.ticks         = element_blank(),
+  axis.line.x        = element_blank(),
+  axis.line.y        = element_blank(),
+
+  panel.background   = element_blank(),
+  panel.border       = element_blank(),
+
+  panel.grid.major.x = element_line(
+    colour   = grey_light,
+    size     = 0.1,
+    linetype = 4
+  ),
+  panel.grid.minor.x = element_blank(),
+  panel.grid.major.y = element_blank(),
+  panel.grid.minor.y = element_blank(),
+
+  plot.background    = element_blank(),
+  plot.title         = element_text(
+    family = family,
+    face   = "bold",
+    colour = grey_dark,
+    size   = 16,
+    hjust  = 0.5#,
+    # margin = margin(10, 0, 5, 0)
+  ),
+  plot.margin        = margin(t = 0.50, r = 0, b = 0.25, l = 0, unit = "cm")
+)
