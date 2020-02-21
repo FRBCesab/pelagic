@@ -34,4 +34,10 @@ source(file.path("analyses", "run_enfa.R"))
 #'  -------------------------------------------------------------------------   @Figure1
 
 
-source(file.path("analyses", "Figure_1_ggplot.R"))
+source(file.path("analyses", "Figure_1.R"))
+
+
+#'  -------------------------------------------------------------------------   @FigureAnnexe
+
+
+source(file.path("analyses", "Figure_annexe.R"))

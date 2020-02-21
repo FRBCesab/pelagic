@@ -1,76 +1,203 @@
-png(
-  file      = file.path(path_figs, "Figure_1.png"),
-  width     = 12.00,
-  height    =  8.00,
-  units     = "in",
-  res       = 600,
-  pointsize = 18
-)
-
-mat <- matrix(
-  c(
-     2,  2,  2,  2,  7,  9,  9,  9,  9, 14,
-     1,  1,  1,  1,  3,  8,  8,  8,  8, 10,
-     4,  5,  5,  6,  6, 11, 12, 12, 13, 13
-  ),
-  nrow  = 3,
-  byrow = TRUE
-)
-
-layout(
-  mat     = mat,
-  widths  = c(1, 1, 1, 1, 1),
-  heights = c(1, 4, 1.75, 4, 1.75)
-)
-
-# layout.show(n = 14)
+plots <- list()
+k     <- 0
 
 for (group in groupes) {
 
+  k <- k + 1
 
-  if (group == "marine") {
+  plots[[k]] <- ggplot(
+    data    = datas[[group]],
+    mapping = aes(
+      x     = PCA1,
+      y     = PCA2,
+      color = catPA,
+      fill  = catPA
+    )
+  ) +
 
-    categories <- c("NPA", "MPA", "NO TAKE")
-    pa_colors  <- c("#c3c3c3", "#74a9cf", "#034e7b")
-    names(pa_colors) <- categories
+  geom_polygon(
+    stat  = "density_2d",
+    alpha = 0.3
+  ) +
 
-  } else  {
+  geom_point(colour = NA) +
 
-    categories <- c("NPA", "TPA", "NO TAKE")
-    pa_colors  <- c("#c3c3c3", "#fec44f", "#8c2d04")
-    names(pa_colors) <- categories
-  }
+  scale_fill_manual(
+    values = color_pas[[group]]
+  ) +
 
+  scale_colour_manual(
+    values = color_pas[[group]]
+  ) +
 
-  par(
-    cex.axis = .70,
-    mgp      = c(2, .5, 0),
-    tcl      = -0.15,
-    xpd      = FALSE,
-    col      = par_fg,
-    col.axis = par_fg,
-    fg       = par_fg,
-    family   = "serif",
-    xaxs     = "r",
-    yaxs     = "r"
+  theme_bw() +
+
+  theme(
+    legend.justification = c(0.95, 0.975),
+    legend.position      = c(0.95, 0.975),
+    legend.title         = element_blank(),
+    legend.background    = element_blank(),
+    legend.direction     = "horizontal",
+
+    axis.text            = element_text(
+      colour = grey_dark,
+      family = family,
+      size   = 17
+    ),
+    legend.text          = element_text(
+      colour = grey_dark,
+      family = family,
+      size   = 17,
+      face   = "bold"
+    ),
+    axis.title           = element_text(
+      colour = grey_dark,
+      family = family,
+      size   = 17,
+      face   = "bold"
+    ),
+    panel.grid.major     = element_line(
+      colour   = grey_light,
+      size     = 0.1,
+      linetype = 4
+    ),
+    panel.grid.minor.x   = element_blank(),
+    panel.grid.minor.y   = element_blank(),
+    axis.ticks           = element_blank()
+  ) +
+
+  labs(
+    x = "ENFA axis 1",
+    y = "ENFA axis 2"
+  ) +
+
+  geom_encircle(
+    data    = datas[[group]],
+    mapping = aes(
+      x      = PCA1,
+      y      = PCA2,
+      colour = catPA
+    ),
+    size        = 2.5,
+    s_shape     = 1,
+    expand      = 0,
+    show.legend = FALSE,
+    fill        = NA
   )
 
-  par(xaxs = "r", yaxs = "r")
-  source(file.path("analyses", "_subplot_1b.R"))
+  k <- k + 1
 
-  par(xaxs = "r", yaxs = "r")
-  source(file.path("analyses", "_subplot_1a.R"))
+  plots[[k]] <- ggplot(data.frame()) +
+    annotate(
+      geom     = "text",
+      x        = 1,
+      y        = 1:nrow(vars_coords[[group]]),
+      label    = vars_coords[[group]]$variable,
+      hjust    = 1,
+      vjust    = 0.5,
+      size     = 6,
+      color    = grey_dark,
+      family   = family,
+      fontface = "plain"
+    ) +
+    xlim(c(.99, 1)) +
+    ylim(c(1 - 0.495, nrow(vars_coords[[group]]) + 0.750)) +
+    theme_empty +
+    theme(
+      plot.margin = margin(0.50, 0.10, 0.10, 0.10, "cm"),
+      axis.text.x        = element_text(color = NA),
+      panel.grid.major.x = element_blank()
+    ) +
+    coord_cartesian(clip = "off", expand = FALSE)
 
-  par(xaxs = "r", yaxs = "r")
-  source(file.path("analyses", "_subplot_1c.R"))
 
-  par(mar = c(0.5, 0.5, 0.5, 0), xaxs = "i", yaxs = "i")
-  source(file.path("analyses", "_subplot_1d.R"))
+  for (axe in c("PCA1", "PCA2")) {
 
-  par(mar = c(.25, .25, .5, .5), mgp = c(2, .5, 0))
-  par(xaxs = "r", yaxs = "r")
-  source(file.path("analyses", "_legend_1.R"))
+    k <- k + 1
 
+    plots[[k]] <- ggplot(data.frame())
+
+    for (i in 1:nrow(vars_coords[[group]])) {
+
+      plots[[k]] <- plots[[k]] + annotate(
+        geom     = "rect",
+        xmin     = 0,
+        xmax     = vars_coords[[group]][i, axe],
+        ymin     = i - 0.33,
+        ymax     = i + 0.33,
+        alpha    = alpha,
+        fill     = color_pas[[group]][3],
+        colour   = color_pas[[group]][3]
+      )
+    }
+
+    plots[[k]] <- plots[[k]] +
+      geom_segment(
+        mapping = aes(
+          x    = 0,
+          y    = 1 - 0.495,
+          xend = 0,
+          yend = nrow(vars_coords[[group]]) + 0.495
+        ),
+        colour  = grey_dark,
+        size    = 0.75
+      ) +
+      ylim(c(1 - 0.495, nrow(vars_coords[[group]]) + 0.750)) +
+      theme_empty
+
+    if (axe == "PCA1") {
+
+      plots[[k]] <- plots[[k]] +
+        theme(
+          plot.margin = margin(0.50, 0.00, 0.10, 0.20, "cm")
+        )
+
+      texte <- "ENFA axis 1"
+    }
+
+    if (axe == "PCA2") {
+
+      plots[[k]] <- plots[[k]] +
+        theme(
+          plot.margin = margin(0.50, 0.10, 0.10, 0.10, "cm")
+       )
+
+      texte <- "ENFA axis 2"
+    }
+
+    plots[[k]] <- plots[[k]] +
+      coord_cartesian(clip = "off", expand = FALSE) +
+      annotate(
+        geom     = "text",
+        x        = 0,
+        y        = 12.75,
+        label    = texte,
+        hjust    = 0.5,
+        vjust    = 0,
+        size     = 6,
+        color    = grey_dark,
+        family   = family,
+        fontface = "bold"
+      )
+  }
 }
 
-dev.off()
+
+plots <- grid.arrange(
+  grobs         = plots,
+  widths        = c(1.30, 2.85, 2.85, 1.30, 2.85, 2.85),
+  heights       = c(7, 2.25),
+  layout_matrix = rbind(
+    c(1, 1, 1, 5, 5, 5),
+    c(2, 3, 4, 6, 7, 8)
+  )
+)
+
+ggsave(
+  filename  = file.path(path_figs, paste0(figname1, ".png")),
+  plot      = plots,
+  height    = 15.45,
+  width     = 24.00,
+  units     = "in",
+  dpi       = 600
+)

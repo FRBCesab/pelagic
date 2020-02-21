@@ -100,11 +100,13 @@ rm(list = c("dir_names", "dir_vars", "dirs"))
 
 
 fig_names <- c(
-  "Figure_1_ggplot"
+  "Figure_1",
+  "Figure_S1"
 )
 
 fig_vars  <- c(
-  "figname1"
+  "figname1",
+  "fignameS1"
 )
 
 figs <- lapply(
@@ -185,7 +187,7 @@ theme_empty <- theme(
     family = family,
     face   = "plain",
     colour = grey_dark,
-    size   = 12
+    size   = 17
   ),
   axis.text.y        = element_blank(),
   axis.ticks         = element_blank(),
@@ -209,7 +211,7 @@ theme_empty <- theme(
     family = family,
     face   = "bold",
     colour = grey_dark,
-    size   = 16,
+    size   = 17,
     hjust  = 0.5#,
     # margin = margin(10, 0, 5, 0)
   ),
