@@ -14,10 +14,13 @@ par(mar = c(2.5, 2.5, .25, .25))
 
 plot(0, xlim = xrng, ylim = yrng, axes = FALSE, bty = "n", ann = FALSE, type = "n")
 
+xats <- axTicks(side = 1)
+yats <- axTicks(side = 2)
+
 grid(lwd = .5)
 
 for (category in categories) {
-  
+
   points(
     x     = subdatas[[category]]$PCA1,
     y     = subdatas[[category]]$PCA2,

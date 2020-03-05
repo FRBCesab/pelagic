@@ -1,5 +1,6 @@
+filename <- fignameS1
 png(
-  file      = file.path(path_figs, paste0(fignameS1, ".png")),
+  file      = file.path(path_figs, paste0(filename, ".png")),
   width     = 12.00,
   height    =  8.00,
   units     = "in",

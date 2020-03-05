@@ -14,15 +14,25 @@ par(mar = c(.25, 2.5, .5, .25))
 
 plot(0, xlim = xrng, ylim = yrng, axes = FALSE, bty = "n", ann = FALSE, type = "n")
 
-if (group == "marine") {
-  yats <- seq(0, 1, by = 0.5)
-} else {
-  yats <- seq(0, 0.6, by = 0.3)
+# if (group == "marine") {
+#   yats <- seq(0, 1, by = 0.5)
+# } else {
+#   yats <- seq(0, 0.6, by = 0.3)
+# }
+
+if (filename == "Figure_S2b") {
+  yyats <- seq(0, 1.4, by = 0.4)
+}
+if (filename %in% c("Figure_S3b", "Figure_S1")) {
+  if (group == "marine") {
+    yyats <- seq(0, 1.0, by = 0.3)
+  } else {
+    yyats <- seq(0, 0.6, by = 0.2)
+  }
 }
 
-xats <- seq(-4, 6, by = 2)
 
-abline(h = yats, lty = 3, lwd = .5, col = "lightgray")
+abline(h = yyats, lty = 3, lwd = .5, col = "lightgray")
 abline(v = xats, lty = 3, lwd = .5, col = "lightgray")
 
 par(xpd = FALSE)
@@ -39,7 +49,7 @@ for (category in categories) {
 par(xpd = FALSE)
 
 par(mgp = c(2, .35, 0))
-axis(2, at = yats, las = 1, lwd = 0, lwd.ticks = .5)
+axis(2, at = yyats, las = 1, lwd = 0, lwd.ticks = .5)
 mtext(side = 2, line = 1.35, "Density", font = 1, cex = .60)
 
 box("plot", lwd = .5)

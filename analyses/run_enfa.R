@@ -37,6 +37,16 @@ for (group in groupes) {
       "NGO", "catPA"
     )
 
+    # variables <- c(
+    #   "HDI", "FisheriesDep", "TravelTime",
+    #   "ConflictScore", "Voice", "NGO", "catPA"
+    # )
+
+    # variables <- c(
+    #   "ChloMean", "SSTMean", "MeanBathy",
+    #   "DistanceToMainland", "Distance", "Island", "catPA"
+    # )
+
   } else {
 
     variables <- c(
@@ -44,6 +54,16 @@ for (group in groupes) {
       "Altitude", "ConflictScore", "DistanceToOcean", "Voice", "FireActivity",
       "Island", "NGO", "catPA"
     )
+
+    # variables <- c(
+    #   "HDI", "PopDensity", "NatRes",
+    #   "ConflictScore", "Voice", "NGO", "catPA"
+    # )
+
+    # variables <- c(
+    #   "Precipitation", "MeanTemperature", "Altitude",
+    #   "DistanceToOcean", "FireActivity", "Island", "catPA"
+    # )
   }
 
   datas[[group]] <- datas[[group]][ , variables]
@@ -53,7 +73,7 @@ for (group in groupes) {
 #'  -------------------------------------------------------------------------   @RunPCAENFA
 
 
-  pca_list[[group]]  <- ade4::dudi.pca(datas[[group]][ , -13], scannf = FALSE, nf = 2)
+  pca_list[[group]]  <- ade4::dudi.pca(datas[[group]][ , -ncol(datas[[group]])], scannf = FALSE, nf = 2)
   enfa_list[[group]] <- adehabitatHS::enfa(pca_list[[group]], c(datas[[group]][ , "catPA"]), scannf = FALSE)
 
 
@@ -86,7 +106,7 @@ for (group in groupes) {
     y    = coords,
     by.x = "code",
     by.y = "variable",
-    all  = TRUE
+    all  = FALSE
   )
   socio      <- coords[coords[ , "family"] == "Socioeconomic", ]
   envir      <- coords[coords[ , "family"] != "Socioeconomic", ]

@@ -101,12 +101,20 @@ rm(list = c("dir_names", "dir_vars", "dirs"))
 
 fig_names <- c(
   "Figure_1",
-  "Figure_S1"
+  "Figure_S1",
+  "Figure_S2a",
+  "Figure_S2b",
+  "Figure_S3a",
+  "Figure_S3b"
 )
 
 fig_vars  <- c(
   "figname1",
-  "fignameS1"
+  "fignameS1",
+  "fignameS2a",
+  "fignameS2b",
+  "fignameS3a",
+  "fignameS3b"
 )
 
 figs <- lapply(

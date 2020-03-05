@@ -14,16 +14,11 @@ par(mar = c(2.5, .25, .25, .5))
 
 plot(0, xlim = yrng, ylim = xrng, axes = FALSE, bty = "n", ann = FALSE, type = "n")
 
-if (group == "marine") {
-  xats <- seq(0, 1.2, by = 0.6)
-} else {
-  xats <- seq(0, 0.8, by = 0.4)
-}
 
-yats <- seq(-4, 2, by = 2)
+xxats <- axTicks(side = 1)
 
 abline(h = yats, lty = 3, lwd = .5, col = "lightgray")
-abline(v = xats, lty = 3, lwd = .5, col = "lightgray")
+abline(v = xxats, lty = 3, lwd = .5, col = "lightgray")
 
 
 par(xpd = FALSE)
@@ -40,7 +35,7 @@ for (category in categories) {
 par(xpd = FALSE)
 
 par(mgp = c(2, .05, 0))
-axis(1, at = xats, lwd = 0, lwd.ticks = .5)
+axis(1, at = xxats, lwd = 0, lwd.ticks = .5)
 box("plot", lwd = .5)
 
 mtext(side = 1, line = 1.05, "Density", font = 1, cex = .60)
