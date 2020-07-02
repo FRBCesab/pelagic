@@ -1,0 +1,32 @@
+Package: pelagic
+Title: Research compendium of the Mouillot et al.'s 2020 paper
+Version: 0.0.0.9000
+Author: c(
+    person(
+        given  = "Nicolas",
+        family = "Casajus",
+        role   = c("aut", "cre"),
+        email  = "nicolas.casajus@fondationbiodiversite.fr"
+    ),
+    person(
+        given  = "Nicolas",
+        family = "Loiseau",
+        role   = "aut",
+        email  = "nicolas.loiseau1@gmail.com"
+    ))
+Description: Research compendium of the Mouillot et al.'s 2020 paper
+URL: https://github.com/frbcesab/pelagic
+BugReports: https://github.com/frbcesab/pelagic/issues
+License: GPL-2
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.0
+Imports:
+    devtools,
+    usethis,
+    here,
+    ade4,
+    adehabitatHS,
+    readr,
+    MASS
