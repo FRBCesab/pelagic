@@ -1,105 +1,85 @@
+#' Perform a PCA Followed by a ENFA
+#'
+#' This script performs a PCA followed by a ENFA.
+#'
+#' @author Nicolas CASAJUS, \email{nicolas.casajus@@fondationbiodiversite.fr},
+#'         Nicolas LOISEAU, \email{nicolas.loiseau1@@gmail.com}
+#'
+#' @date 2020/06/30
 
 
 for (group in groupes) {
 
-
-
-#'  -------------------------------------------------------------------------   @TransformData
-
-  datas[[group]][ , "NGO"]        <- log10(datas[[group]][ , "NGO"] + 1)
-
+  ## Transform Data ----
+  
   if (group == "marine") {
-
-    datas[[group]][ , "catPA"]     <- factor(datas[[group]][ , "catPA"], levels = c('NPA','MPA','NO TAKE'), ordered = TRUE)
-    datas[[group]][ , "Distance"]  <- log10(datas[[group]][ , "Distance"] + 1)
-    datas[[group]][ , "MeanBathy"] <- log10(-1 * (datas[[group]][ , "MeanBathy"]) + 1)
-
+    
+    var_to_log <- c("conflicts", "ngo", "dist_to_coast", "travel_time", 
+                    "dist_to_seamounts", "chloro_a")
   } else {
-
-    datas[[group]][ , "catPA"]    <- factor(datas[[group]][ , "catMPA"], levels = c('NPA','TPA','NO TAKE'), ordered = TRUE)
-    datas[[group]][ , "Altitude"] <- log10(datas[[group]][ , "Altitude"] + 1)
-    datas[[group]][ , "NatRes"]   <-
-      datas[[group]][ , "NatRes"] /
-      max(datas[[group]][ , "NatRes"]) +
-      datas[[group]][ , "AgricultureDep"]
+    
+    var_to_log <- c("conflicts", "ngo", "dist_to_ocean", "pop_density", 
+                    "annual_precipitation")
   }
+  
+  datas[[group]][ , var_to_log] <- log10(datas[[group]][ , var_to_log] + 1)
+  
+  
+  ## Create PA Categories ----
 
-
-
-#'  -------------------------------------------------------------------------   @SelectData
-
-
-  if (group == "marine") {
-
-    variables <- c(
-      "HDI", "FisheriesDep", "ChloMean", "SSTMean", "TravelTime", "MeanBathy",
-      "ConflictScore", "DistanceToMainland", "Voice", "Distance", "Island",
-      "NGO", "catPA"
+  datas[[group]]$"pa_category" <- ifelse(
+    datas[[group]]$"iucn_category" %in% highly_restricted,
+    "Highly Restricted",
+    ifelse(
+      datas[[group]]$"iucn_category" == "NONE",
+      "None",
+      "Restricted"
     )
+  )
+  
+  datas[[group]]$"pa_category" <- factor(datas[[group]]$"pa_category", 
+                                         levels  = categories, 
+                                         ordered = TRUE)
+  
+  ## Select Columns ----
 
-    # variables <- c(
-    #   "HDI", "FisheriesDep", "TravelTime",
-    #   "ConflictScore", "Voice", "NGO", "catPA"
-    # )
-
-    # variables <- c(
-    #   "ChloMean", "SSTMean", "MeanBathy",
-    #   "DistanceToMainland", "Distance", "Island", "catPA"
-    # )
-
-  } else {
-
-    variables <- c(
-      "HDI", "PopDensity", "Precipitation", "MeanTemperature", "NatRes",
-      "Altitude", "ConflictScore", "DistanceToOcean", "Voice", "FireActivity",
-      "Island", "NGO", "catPA"
-    )
-
-    # variables <- c(
-    #   "HDI", "PopDensity", "NatRes",
-    #   "ConflictScore", "Voice", "NGO", "catPA"
-    # )
-
-    # variables <- c(
-    #   "Precipitation", "MeanTemperature", "Altitude",
-    #   "DistanceToOcean", "FireActivity", "Island", "catPA"
-    # )
-  }
-
-  datas[[group]] <- datas[[group]][ , variables]
+  columns <- c(vars_list[[group]]$"code", "pa_category")
+  datas[[group]] <- datas[[group]][ , columns]
 
 
+  ## Run PCA & ENFA ----
 
-#'  -------------------------------------------------------------------------   @RunPCAENFA
+  pca_list[[group]]  <- ade4::dudi.pca(
+    df     = datas[[group]][ , -ncol(datas[[group]])], 
+    scannf = FALSE, 
+    nf     = 2
+  )
+  
+  enfa_list[[group]] <- adehabitatHS::enfa(
+    dudi   = pca_list[[group]], 
+    pr     = c(datas[[group]]$"pa_category"), 
+    scannf = FALSE
+  )
 
 
-  pca_list[[group]]  <- ade4::dudi.pca(datas[[group]][ , -ncol(datas[[group]])], scannf = FALSE, nf = 2)
-  enfa_list[[group]] <- adehabitatHS::enfa(pca_list[[group]], c(datas[[group]][ , "catPA"]), scannf = FALSE)
-
-
-
-#'  -------------------------------------------------------------------------   @GetIndsCoords
-
+  ## Get Cells Coordinates ----
 
   datas[[group]][ , "PCA1"] <- enfa_list[[group]]$li[ , 1]
   datas[[group]][ , "PCA2"] <- enfa_list[[group]]$li[ , 2]
 
 
-
-#'  -------------------------------------------------------------------------   @GetVarsCoords
-
+  ## Get Variables Coordinates ----
 
   coords <- data.frame(
-    variable = rownames(enfa_list[[group]]$co),
+    variable  = rownames(enfa_list[[group]]$co),
     enfa_list[[group]]$co,
     row.names = NULL
   )
+  
   colnames(coords)[-1] <- c("PCA1", "PCA2")
 
 
-
-#'  -------------------------------------------------------------------------   @AddVarsLabels
-
+  ## Add Variables Labels ----
 
   coords <- merge(
     x    = vars_list[[group]],
@@ -108,11 +88,16 @@ for (group in groupes) {
     by.y = "variable",
     all  = FALSE
   )
-  socio      <- coords[coords[ , "family"] == "Socioeconomic", ]
-  envir      <- coords[coords[ , "family"] != "Socioeconomic", ]
+  
+  
+  ## Order Variables (by Category then by x-Axis Coordinates) ----
+  
+  socio <- coords[coords$"family" == "Socioeconomic", ]
+  envir <- coords[coords$"family" != "Socioeconomic", ]
 
-  socio      <- socio[order(abs(socio[ , "PCA1"]), decreasing = FALSE), ]
-  envir      <- envir[order(abs(envir[ , "PCA1"]), decreasing = FALSE), ]
+  socio <- socio[order(abs(socio$"PCA1"), decreasing = FALSE), ]
+  envir <- envir[order(abs(envir$"PCA1"), decreasing = FALSE), ]
 
   vars_coords[[group]] <- rbind(envir, socio)
+  
 }
