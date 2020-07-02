@@ -1,13 +1,13 @@
 code,variable,family
-HDI,HDI,Socioeconomic
-FisheriesDep,Fisheries Dependency,Socioeconomic
-ChloMean,Chlorophyll A,Environment
-SSTMean,Mean SST,Environment
-TravelTime,Travel Time,Socioeconomic
-MeanBathy,Mean Bathymetry,Environment
-ConflictScore,Conflict Score,Socioeconomic
-DistanceToMainland,Distance to mainland,Environment
-Voice,Voice,Socioeconomic
-Distance,Distance to seamount,Environment
-Island,Island,Environment
-NGO,NGO,Socioeconomic
+conflicts,Conflict Score,Socioeconomic
+hdi,HDI,Socioeconomic
+marine_ecosystem_dependency,Sea Dependency,Socioeconomic
+ngo,NGO,Socioeconomic
+travel_time,Travel Time,Socioeconomic
+voice,Voice,Socioeconomic
+bathymetry,Mean Bathymetry,Environment
+chloro_a,Chlorophyll A,Environment
+dist_to_coast,Distance to coast,Environment
+dist_to_seamounts,Distance to seamount,Environment
+island,Island,Environment
+sst,Mean SST,Environment

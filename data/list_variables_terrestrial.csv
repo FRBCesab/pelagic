@@ -1,13 +1,13 @@
 code,variable,family
-HDI,HDI,Socioeconomic
-PopDensity,Population Density,Socioeconomic
-Precipitation,Precipitation,Environment
-MeanTemperature,Mean Temperature,Environment
-NatRes,Natural Ressouces,Socioeconomic
-Altitude,Altitude,Environment
-ConflictScore,Conflict Score,Socioeconomic
-DistanceToOcean,Distance to ocean,Environment
-Voice,Voice,Socioeconomic
-FireActivity,Fire Activity,Environment
-Island,Island,Environment
-NGO,NGO,Socioeconomic
+conflicts,Conflict Score,Socioeconomic
+hdi,HDI,Socioeconomic
+natural_resources,Natural Ressouces,Socioeconomic
+ngo,NGO,Socioeconomic
+pop_density,Population Density,Socioeconomic
+voice,Voice,Socioeconomic
+altitude,Altitude,Environment
+annual_precipitation,Annual Precipitation,Environment
+dist_to_ocean,Distance to ocean,Environment
+freshwater,Freshwater,Environment
+island,Island,Environment
+mean_temperature,Mean Temperature,Environment
