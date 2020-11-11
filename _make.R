@@ -6,7 +6,7 @@
 #' @author Nicolas CASAJUS, \email{nicolas.casajus@@fondationbiodiversite.fr},
 #'         Nicolas LOISEAU, \email{nicolas.loiseau1@@gmail.com}
 #'
-#' @date 2020/06/30
+#' @date 2020/11/11
 
 
 ## Settings ----
@@ -23,7 +23,7 @@ source(here::here("analyses", "params.R"))
 source(here::here("analyses", "run_enfa.R"))
 
 for (type in c("points", "densities")) {
-  
+
   figname <- paste0("Figure_Main_", type)
   source(here::here("analyses", "plot_enfa.R"))
 }
