@@ -6,3 +6,4 @@
 .DS_Store
 
 data/wdpa/
+data/wdpa_polygons.rds
