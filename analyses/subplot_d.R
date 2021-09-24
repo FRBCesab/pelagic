@@ -18,8 +18,8 @@ plot(0, type = "n", xlim = c(0, 1), ylim = c(-1, nnn + 2), ann  = FALSE,
 
 abline(h = 0.5, lwd = 2, col = "white")
 
-text(x = rep(1, nnn), y = 1:nnn, labels = vars_coords[[group]]$variable, pos = 2,
-     cex = 0.65)
+text(x = rep(1.05, nnn), y = 1:nnn, labels = vars_coords[[group]]$variable, pos = 2,
+     cex = 0.7)
 
 lines(x = c(par()$usr[1], par()$usr[2]), y = rep(par()$usr[3], 2), lwd = .5)
 lines(x = c(par()$usr[1], par()$usr[2]), y = rep(par()$usr[4], 2), lwd = .5)
@@ -53,9 +53,37 @@ for (pca in c("PCA1", "PCA2")) {
   
   ## Hack ----
   
-  if (group == "marine" && pca == "PCA2") where <- where[-1]
-  if (group == "terrestrial" && pca == "PCA2") where <- where[-length(where)]
+  # if (group == "marine" && pca == "PCA2" && variables_type != "Socioeconomic") where <- where[-1]
+  # if (group == "terrestrial" && pca == "PCA2") where <- where[-length(where)]
+  # 
+  # 
+  # if (variables_type == "Socioeconomic" && pca == "PCA1") where <- where[-1]
+  # if (variables_type == "Socioeconomic" && pca == "PCA2") where <- where[-1]
+  # 
   
+  if (variables_type == "all") {
+    if (group == "terrestrial" && pca == "PCA2") {
+      where <- where[-length(where)]
+    }
+    if (group == "marine" && pca == "PCA2") {
+      where <- where[-1]
+    }
+  }
+  
+  if (variables_type == "Socioeconomic") {
+    if (group == "terrestrial" && pca == "PCA1") {
+      where <- where[-1]
+    }
+    if (group == "terrestrial" && pca == "PCA2") {
+      where <- where[-1]
+    }
+  }
+  
+  if (variables_type == "Environment") {
+    if (group == "marine" && pca == "PCA2") {
+      where <- where[-1]
+    }
+  }
   
   # Add Axis ----
   
@@ -71,9 +99,11 @@ for (pca in c("PCA1", "PCA2")) {
   
   ## Add Data ----
   
-  couleur <- color_pas[[group]][length(color_pas[[group]])]
+  # couleur <- color_pas[[group]][length(color_pas[[group]])]
 
   for (i in 1:nnn) {
+    
+    couleur <- color_cat[vars_coords[[group]][i, "family"]]
 
     if (vars_coords[[group]][i, pca] < 0) {
 
@@ -82,7 +112,7 @@ for (pca in c("PCA1", "PCA2")) {
         ybottom = i - 0.33, 
         xright  = 0, 
         ytop    = i + 0.33, 
-        col     = paste0(couleur, "aa"), 
+        col     = paste0(couleur, ""), 
         border  = couleur
       )
 
@@ -93,7 +123,7 @@ for (pca in c("PCA1", "PCA2")) {
         ybottom = i - 0.33, 
         xright  = vars_coords[[group]][i, pca], 
         ytop    = i + 0.33, 
-        col     = paste0(couleur, "aa"), 
+        col     = paste0(couleur, ""), 
         border  = couleur
       )
     }

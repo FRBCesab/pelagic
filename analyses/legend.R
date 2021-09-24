@@ -25,12 +25,16 @@ lines(c(-0.8, 0.8), rep(3.75, 2), lwd = 1)
 
 for (i in 1:length(categories)) {
 
-  text(x = -.74, y = i, labels = categories[i], cex = 0.6, pos = 4, font = 2)
+  if (categories[i] == "Highly Restricted") new_cat <- "IUCN I"
+  if (categories[i] == "Restricted") new_cat <- "Protected"
+  if (categories[i] == "None") new_cat <- "Non protected"
+  
+  text(x = -.64, y = i, labels = new_cat, cex = 0.6, pos = 4, font = 2)
   
   rect(
-    xleft   = -0.99, 
+    xleft   = -0.89, 
     ybottom = i - 0.15, 
-    xright  = -0.665, 
+    xright  = -0.565, 
     ytop    = i + 0.30, 
     col     = paste0(color_pas[[group]][categories[i]], "aa"), 
     border  = color_pas[[group]][categories[i]], 

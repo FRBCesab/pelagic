@@ -43,9 +43,23 @@ for (group in groupes) {
   
   ## Select Columns ----
 
-  columns <- c(vars_list[[group]]$"code", "pa_category")
+  columns <- vars_list[[group]]$"code"
+  
+  if (variables_type == "Socioeconomic") {
+    columns <- columns[which(columns %in% vars_list[[group]][vars_list[[group]]$"family" == "Socioeconomic", "code", drop = TRUE])]
+  }
+  
+  if (variables_type == "Environment") {
+    columns <- columns[which(columns %in% vars_list[[group]][vars_list[[group]]$"family" == "Environment", "code", drop = TRUE])]
+  }
+  
+  columns <- c(columns, "pa_category")
   datas[[group]] <- datas[[group]][ , columns]
+  
+  
+  ## Hack ----
 
+  
 
   ## Run PCA & ENFA ----
 
