@@ -15,6 +15,7 @@ if (!("here" %in% installed.packages())) install.packages("here")
 
 source(here::here("analyses", "setup.R"))
 
+type <- "points"
 
 ## Figure 1 ----
 

@@ -13,12 +13,12 @@ plot(0, xlim = c(-1, 1), ylim = c(0, 5), axes = FALSE, bty = "n", ann = FALSE,
 
 ## Title ----
 
-text(x = 0, y = 4.25, labels = toupper(group), cex = 0.65, font = 2)
+# text(x = 0, y = 4.25, labels = toupper(group), cex = 0.65, font = 2)
 
 
 ## Underline ----
 
-lines(c(-0.8, 0.8), rep(3.75, 2), lwd = 1)
+# lines(c(-0.8, 0.8), rep(3.75, 2), lwd = 1)
 
 
 ## Legend Items ----
@@ -29,7 +29,7 @@ for (i in 1:length(categories)) {
   if (categories[i] == "Restricted") new_cat <- "Protected"
   if (categories[i] == "None") new_cat <- "Non protected"
   
-  text(x = -.64, y = i, labels = new_cat, cex = 0.6, pos = 4, font = 2)
+  text(x = -.64, y = i, labels = new_cat, cex = 0.85, pos = 4, font = 2)
   
   rect(
     xleft   = -0.89, 
@@ -42,4 +42,4 @@ for (i in 1:length(categories)) {
   )
 }
 
-box("plot", lwd = 0.5)
+# box("plot", lwd = 0.5)

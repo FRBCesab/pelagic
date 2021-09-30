@@ -42,7 +42,8 @@ yrng <- c(0, max(unlist(lapply(densities, function(.) max(.$"y")))) + 0.1)
 
 par(mar = c(2.50, 0.25, 0.25, 0.50))
 
-plot(0, xlim = yrng, ylim = xrng, axes = FALSE, bty = "n", ann = FALSE, type = "n")
+plot(0, xlim = yrng, ylim = xrng, axes = FALSE, bty = "n", ann = FALSE, 
+     type = "n")
 
 
 ## Grid ----

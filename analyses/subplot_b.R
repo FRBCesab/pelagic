@@ -47,8 +47,15 @@ plot(0, xlim = xrng, ylim = yrng, axes = FALSE, bty = "n", ann = FALSE, type = "
 
 ## Grid ----
 
-if (group == "marine")      yyats <- seq(0, 1.0, by = 0.3)
-if (group == "terrestrial") yyats <- seq(0, 0.6, by = 0.2)
+if (group == "marine") {
+  yyats <- seq(0, 1.2, by = 0.2)
+} else {
+  if (variables_type == "Socioeconomic") {
+    yyats <- seq(0, 1.2, by = 0.3)  
+  } else {
+    yyats <- seq(0, 1.2, by = 0.2)
+  }
+}
 
 abline(h = yyats, v = xats, lty = 3, lwd = .5, col = "lightgray")
 

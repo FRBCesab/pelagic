@@ -12,8 +12,8 @@
 
 png(
   file      = here::here("figures", paste0(figname, ".png")),
-  width     = 12.00,
-  height    =  8.00,
+  width     = 14.00,
+  height    =  9.00,
   units     = "in",
   res       = 600,
   pointsize = 18
@@ -24,18 +24,19 @@ png(
 
 mat <- matrix(
   c(
-     2,  2,  2,  2,  7,  9,  9,  9,  9, 14,
-     1,  1,  1,  1,  3,  8,  8,  8,  8, 10,
-     4,  5,  5,  6,  6, 11, 12, 12, 13, 13
+    15, 15, 15, 15, 15, 15, 15, 15, 16, 16, 16, 16, 16, 16, 16, 16, 
+     2,  2,  2,  2,  2,  2,  7,  7,  9,  9,  9,  9,  9,  9, 14, 14,
+     1,  1,  1,  1,  1,  1,  3,  3,  8,  8,  8,  8,  8,  8, 10, 10,
+     4,  4,  5,  5,  5,  6,  6,  6, 11, 11, 12, 12, 12, 13, 13, 13
   ),
-  nrow  = 3,
+  nrow  = 4,
   byrow = TRUE
 )
 
 layout(
   mat     = mat,
-  widths  = c(1, 1, 1, 1, 1),
-  heights = c(1, 4, 1.75, 4, 1.75)
+  widths  = rep(1, ncol(mat)),
+  heights = c(0.25, 1.25, 4, 2.25)
 )
 
 
@@ -89,6 +90,14 @@ for (group in groupes) {
   source(here::here("analyses", "legend.R"))
 
 }
+
+par(mar = rep(0, 4), xaxs = "i", yaxs = "i")
+plot(0, 0, type = "n", axes = FALSE, ann = FALSE)
+text(0, 0, "Terrestrial", font = 2, cex = 1.25)
+
+plot(0, 0, type = "n", axes = FALSE, ann = FALSE)
+text(0, 0, "Marine", font = 2, cex = 1.25)
+
 
 dev.off()
 

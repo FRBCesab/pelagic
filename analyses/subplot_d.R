@@ -19,7 +19,7 @@ plot(0, type = "n", xlim = c(0, 1), ylim = c(-1, nnn + 2), ann  = FALSE,
 abline(h = 0.5, lwd = 2, col = "white")
 
 text(x = rep(1.05, nnn), y = 1:nnn, labels = vars_coords[[group]]$variable, pos = 2,
-     cex = 0.7)
+     cex = 0.9)
 
 lines(x = c(par()$usr[1], par()$usr[2]), y = rep(par()$usr[3], 2), lwd = .5)
 lines(x = c(par()$usr[1], par()$usr[2]), y = rep(par()$usr[4], 2), lwd = .5)
@@ -141,7 +141,7 @@ for (pca in c("PCA1", "PCA2")) {
     y      = nnn + 1.15,
     labels = paste0("ENFA axis ", gsub("PCA", "", pca)),
     font   = 2, 
-    cex    = 0.70
+    cex    = 0.80
   )
 
   
