@@ -1,18 +1,13 @@
-#' Run an R Makefile
+#' Run an R makefile
 #'
-#' This function sources the `_make.R` script located at the root of the project.
+#' Sources the `_make.R` script located at the root of the project.
 #' 
-#' @importFrom here here
 #' @export
-#' 
-#' @author Nicolas Casajus, \email{nicolas.casajus@@fondationbiodiversite.fr}
 #'
 #' @examples
+#' \dontrun{
 #' make()
+#' }
 
 
-make <- function() {
-  
-  source(here::here("_make.R"))
-}
-
+make <- function() source(here::here("_make.R"))

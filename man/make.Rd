@@ -2,16 +2,15 @@
 % Please edit documentation in R/make.R
 \name{make}
 \alias{make}
-\title{Run an R Makefile}
+\title{Run an R makefile}
 \usage{
 make()
 }
 \description{
-This function sources the \verb{_make.R} script located at the root of the project.
+Sources the \verb{_make.R} script located at the root of the project.
 }
 \examples{
+\dontrun{
 make()
 }
-\author{
-Nicolas Casajus, \email{nicolas.casajus@fondationbiodiversite.fr}
 }

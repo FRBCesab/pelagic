@@ -1,35 +1,20 @@
+## Parameters ----
+
 regions <- c("Land", "Sea")
 llabels <- c("Terrestrial", "Marine")
 
-proj4 <- "+proj=moll +lon_0=0 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs"
+
+## Coordinates systems ----
+
+lon_lat   <- paste("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84", 
+                   "+towgs84=0,0,0")
+mollweide <- paste("+proj=moll +lon_0=0 +x_0=0 +y_0=0 +datum=WGS84 ", 
+                   "+units=m +no_defs")
+robinson  <- paste("+proj=robin +lon_0=0 +x_0=0 +y_0=0 +ellps=WGS84", 
+                   "+datum=WGS84 +units=m +no_defs")
 
 
-## Import World PA ----
-
-# shp <- list.files(path = here::here("data", "wdpa"), recursive = TRUE, 
-#                   pattern = "polygons\\.shp$", full.names = TRUE)
-# 
-# shp <- lapply(shp, function(x) sf::st_read(x))
-# shp <- do.call(rbind.data.frame, shp)
-# shp <- sf::st_transform(shp, proj4)
-
-shp <- readRDS(here::here("data", "wdpa_polygons.rds"))
-
-
-## Import Basemap Layer ----
-
-world_ori <- rnaturalearth::ne_countries(scale = "medium", type = "countries", 
-                                         returnclass = "sf")
-world <- sf::st_transform(world_ori, proj4)
-world <- world[world$admin != "Antarctica", ]
-
-
-## Map Border ----
-
-ext <- raster::extent(-180, 180, -90, 90)
-ext <- as(ext, 'SpatialPolygons')  
-sp::proj4string(ext) <- raster::projection(world_ori)
-
+## Prepare data ----
 
 for (i in 1:length(regions)) {
   
@@ -47,7 +32,7 @@ for (i in 1:length(regions)) {
   
   ## Add cells coordinates to Data ----
   
-  cells <- which(ras[] %in% datas$ID)
+  cells <- which(ras[] %in% datas$"ID")
   xy    <- data.frame(ID = ras[][cells], raster::xyFromCell(ras, cells))
   
   dat <- merge(xy, datas, by = "ID", all = TRUE)
@@ -55,13 +40,13 @@ for (i in 1:length(regions)) {
   
   ## Subset Top5 ----
   
-  dat <- dat[dat$top5 == TRUE, ]
+  dat <- dat[dat$"top5" == TRUE, ]
   
   
   ## Convert to sf ----
   
-  tab <- sf::st_as_sf(dat, coords = c("x", "y"), crs = proj4)
-  
+  tab <- sf::st_as_sf(dat, coords = c("x", "y"), crs = mollweide)
+  tab <- sf::st_transform(tab, robinson)
   
   
   ## Categorize ----
@@ -105,64 +90,62 @@ for (i in 1:length(regions)) {
 }
 
 
-## Maps ----
+## Map guides ----
 
-couleurs <- c('#a50026','#d73027','#f46d43','#fdae61','#fee090','#e0f3f8',
-              '#abd9e9','#74add1','#4575b4','#313695')
-couleurs <- rev(couleurs)
-couleurs <- colorRampPalette(couleurs[-c(2, 10)])
-couleurs <- rev(couleurs(10))
+frame <- map_frame(crs = robinson)
+grats <- map_graticules(crs = robinson)
+axes  <- map_axes(crs = robinson)
 
 
+## Import basemap Layers ----
+
+world <- sf::st_read(here::here("data", "ne_50m_land", "ne_50m_land.shp"))
+ocean <- sf::st_read(here::here("data", "ne_50m_ocean", "ne_50m_ocean.shp"))
+coast <- sf::st_read(here::here("data", "ne_50m_coastline", "ne_50m_coastline.shp"))
 
 
-## Marine map ----
+## Import WDPA ----
 
-couleurs <- c('#a50026','#d73027','#f46d43','#fdae61','#fee090','#e0f3f8',
-              '#abd9e9','#74add1','#4575b4','#313695')
-# reds <- c('#d73027','#f46d43','#fdae61', '#fee090')
-# blues <- c('#e0f3f8','#abd9e9','#74add1','#4575b4','#313695')
-# blues <- colorRampPalette(blues)(6)
-# couleurs <- c(reds, blues)
+wdpa <- readRDS(here::here("data", "wdpa_polygons.rds"))
 
-# plot(1:length(couleurs), rep(1, length(couleurs)), pch = 19, cex = 4, col = couleurs)
-
-mar_ap <- shp[shp$"MARINE" == 2, ]
+mar_ap <- wdpa[wdpa$"MARINE" == 2, ]
 mar_ap <- mar_ap[mar_ap$"IUCN_CAT" %in% c("Ia", "Ib", "II", "III", "IV", "V", "VI"), ]
 mar_ap <- mar_ap[mar_ap$"GIS_AREA" > 10000, ]
 
-sf_obj <- SF_OBJ[SF_OBJ$"Region" == "Marine", ]
-
-mar_plot <- ggplot2::ggplot() +
-  
-  ggplot2::geom_sf(data = mar_ap, fill = NA, color = "#486d31", size = 0.4) +
-  
-  ggplot2::geom_sf(data = world, fill = "#dedede", color = "white", size = 0.1) +
-  
-  ggplot2::geom_sf(data = sf_obj, ggplot2::aes(fill = category), 
-                   color = NA, size = 0.1) +
-  
-  ggplot2::scale_fill_gradientn(colours = couleurs) +
-  
-  ggplot2::coord_sf(crs = proj4) +
-  
-  ggplot2::theme_bw() +
-  
-  ggplot2::theme(legend.position = "bottom", 
-                 legend.title = ggplot2::element_blank(),
-                 strip.text.y = ggplot2::element_blank())
-
-ggplot2::ggsave(mar_plot, filename = here::here("figures", "marine-map.pdf"),
-                width = 12, height = 7, units = "in")
+ter_ap <- wdpa[wdpa$"MARINE" == 0, ]
+ter_ap <- ter_ap[ter_ap$"IUCN_CAT" %in% c("Ia", "Ib", "II", "III", "IV", "V", "VI"), ]
+ter_ap <- ter_ap[ter_ap$"GIS_AREA" > 5000, ]
 
 
-# 
-# ggplot2::ggsave(filename = here::here("figures", "figure_maps.png"),
-#                 width = 12, height = 12, dpi = 600, units = "in", pointsize = 14)
-# 
+## Layers projection ----
+
+world  <- sf::st_transform(world, robinson)
+ocean  <- sf::st_transform(ocean, robinson)
+coast  <- sf::st_transform(coast, robinson)
+mar_ap <- sf::st_transform(mar_ap, robinson)
+ter_ap <- sf::st_transform(ter_ap, robinson)
 
 
-## Terrestrial map ----
+## Crop layers with map extent ----
+
+options(warn = -1)
+
+world <- sf::st_intersection(world, frame)
+ocean <- sf::st_intersection(ocean, frame)
+coast <- sf::st_intersection(coast, frame)
+
+
+## Crop graticules with lands ----
+
+grats <- sf::st_intersection(grats, ocean)
+
+options(warn = 0)
+
+
+## Colors ----
+
+col_sea  <- "#e5f1f6"
+col_grat <- "#bfdde9"
 
 couleurs <- c('#a50026','#d73027','#f46d43','#fdae61','#fee090','#e0f3f8',
               '#abd9e9','#74add1','#4575b4','#313695')
@@ -170,33 +153,109 @@ couleurs <- rev(couleurs)
 couleurs <- colorRampPalette(couleurs[-c(2, 10)])
 couleurs <- rev(couleurs(10))
 
-# plot(1:length(couleurs), rep(1, length(couleurs)), pch = 19, cex = 4, col = couleurs)
 
-ter_ap <- shp[shp$"MARINE" == 0, ]
-ter_ap <- ter_ap[ter_ap$"IUCN_CAT" %in% c("Ia", "Ib", "II", "III", "IV", "V", "VI"), ]
-ter_ap <- ter_ap[ter_ap$"GIS_AREA" > 5000, ]
+## Legend position ----
 
-sf_obj <- SF_OBJ[SF_OBJ$"Region" == "Terrestrial", ]
+x_start <- -13000000
+y_start <- -5000000
+x_inc <- 400000
+y_inc <- 300000
 
-ter_plot <- ggplot2::ggplot() +
-  
-  ggplot2::geom_sf(data = world, fill = "#dedede", color = "white", 
-                   size = 0.1) +
-  
-  ggplot2::geom_sf(data = ter_ap, fill = NA, color = "#486d31", size = 0.4) +
-  
-  ggplot2::geom_sf(data = sf_obj, ggplot2::aes(fill = category), 
-                   color = NA, size = 0.1) +
-  
-  ggplot2::scale_fill_gradientn(colours = couleurs) +
-  
-  ggplot2::coord_sf(crs = proj4) +
-  
-  ggplot2::theme_bw() +
-  
-  ggplot2::theme(legend.position = "bottom", 
-                 legend.title = ggplot2::element_blank(),
-                 strip.text.y = ggplot2::element_blank())
 
-ggplot2::ggsave(ter_plot, filename = here::here("figures", "terrestrial-map.pdf"),
-                width = 12, height = 7, units = "in")
+## Map ----
+
+png(filename = here::here("figures", "mouillot_etal-4.png"), width = 14.00, 
+    height = 14.00, units = "in", res = 600, pointsize = 18)
+
+par(mfrow = c(2, 1))
+
+par(mar = c(0.5, 0, 1, 0), family = "serif")
+
+plot(sf::st_geometry(frame), border = NA, col = NA)
+plot(sf::st_geometry(world), border = NA, col = "#dddddd", lwd = 0.1, add = TRUE)
+
+data_ter <- SF_OBJ[SF_OBJ$Region == "Terrestrial", ]
+for (i in 1:nrow(data_ter)) {
+  plot(sf::st_geometry(data_ter[i, ]), col = couleurs[i], border = NA, 
+       add = TRUE)
+}
+
+plot(sf::st_geometry(ocean), border = col_grat, col = col_sea, lwd = 0.2, add = TRUE)
+plot(sf::st_geometry(grats), col = col_grat, lwd = 0.2, add = TRUE)
+plot(sf::st_geometry(frame), border = "white", col = NA, lwd = 4, add = TRUE)
+plot(sf::st_geometry(frame), border = "#333333", col = NA, lwd = 0.5, add = TRUE)
+
+mtext("Terrestrial", side = 3, line = -1, font = 2, cex = 1.25, adj = 0.065)
+
+text(axes[axes$"side" == 1, c("x", "y")], axes[axes$"side" == 1, "text"], 
+     pos = 1, xpd = TRUE, cex = 0.45, col = "#666666")
+text(axes[axes$"side" == 2, c("x", "y")], axes[axes$"side" == 2, "text"], 
+     pos = 2, xpd = TRUE, cex = 0.45, col = "#666666")
+text(axes[axes$"side" == 3, c("x", "y")], axes[axes$"side" == 3, "text"],
+     pos = 3, xpd = TRUE, cex = 0.45, col = "#666666")
+text(axes[axes$"side" == 4, c("x", "y")], axes[axes$"side" == 4, "text"], 
+     pos = 4, xpd = TRUE, cex = 0.45, col = "#666666")
+
+rect(x_start, y_start - y_inc, x_start + x_inc * 10, y_start + y_inc,
+     border = "white", col = "white", lwd = 2)
+
+for (i in 1:length(couleurs)) {
+  rect(x_start + x_inc * (i - 1), y_start - y_inc, x_start + x_inc * i, y_start + y_inc,
+       border = NA, col = couleurs[i])
+}
+
+text(x_start, y_start - y_inc / 1.5, "0.0", pos = 1, cex = 0.65)
+text(x_start + x_inc * 5, y_start - y_inc / 1.5, "0.5", pos = 1, cex = 0.65)
+text(x_start + x_inc * 10, y_start - y_inc / 1.5, "1.0", pos = 1, cex = 0.65)
+
+text(x_start + x_inc * 5, y_start + y_inc / 1.5, "Probabilities", pos = 3, cex = 0.75, font = 1)
+
+par(mar = c(1, 0, 0.5, 0), family = "serif")
+
+plot(sf::st_geometry(frame), border = NA, col = NA)
+# plot(sf::st_geometry(ocean), border = NA, col = "white", lwd = 0.2, add = TRUE)
+# plot(sf::st_geometry(grats), col = "#dddddd", lwd = 0.2, add = TRUE)
+
+plot(sf::st_geometry(ocean), border = col_grat, col = col_sea, lwd = 0.2, add = TRUE)
+plot(sf::st_geometry(grats), col = col_grat, lwd = 0.2, add = TRUE)
+
+plot(sf::st_geometry(mar_ap), border = "#6ba249", col = NA, lwd = 0.2, add = TRUE)
+
+data_mar <- SF_OBJ[SF_OBJ$Region == "Marine", ]
+for (i in 1:nrow(data_mar)) {
+  plot(sf::st_geometry(data_mar[i, ]), col = couleurs[i], border = NA, 
+       add = TRUE)
+}
+
+plot(sf::st_geometry(world), border = col_sea, col = "#dddddd", lwd = 0.1, add = TRUE)
+
+# plot(sf::st_geometry(world), border = "#dddddd", col = "#eeeeee", lwd = 0.1, add = TRUE)
+plot(sf::st_geometry(frame), border = "white", col = NA, lwd = 4, add = TRUE)
+plot(sf::st_geometry(frame), border = "#333333", col = NA, lwd = 0.5, add = TRUE)
+
+mtext("Marine", side = 3, line = -1, font = 2, cex = 1.25, adj = 0.065)
+
+text(axes[axes$"side" == 1, c("x", "y")], axes[axes$"side" == 1, "text"], 
+     pos = 1, xpd = TRUE, cex = 0.45, col = "#666666")
+text(axes[axes$"side" == 2, c("x", "y")], axes[axes$"side" == 2, "text"], 
+     pos = 2, xpd = TRUE, cex = 0.45, col = "#666666")
+text(axes[axes$"side" == 3, c("x", "y")], axes[axes$"side" == 3, "text"], 
+     pos = 3, xpd = TRUE, cex = 0.45, col = "#666666")
+text(axes[axes$"side" == 4, c("x", "y")], axes[axes$"side" == 4, "text"], 
+     pos = 4, xpd = TRUE, cex = 0.45, col = "#666666")
+
+rect(x_start, y_start - y_inc, x_start + x_inc * 10, y_start + y_inc,
+     border = "white", col = "white", lwd = 2)
+
+for (i in 1:length(couleurs)) {
+  rect(x_start + x_inc * (i - 1), y_start - y_inc, x_start + x_inc * i, y_start + y_inc,
+       border = NA, col = couleurs[i])
+}
+
+text(x_start, y_start - y_inc / 1.5, "0.0", pos = 1, cex = 0.65)
+text(x_start + x_inc * 5, y_start - y_inc / 1.5, "0.5", pos = 1, cex = 0.65)
+text(x_start + x_inc * 10, y_start - y_inc / 1.5, "1.0", pos = 1, cex = 0.65)
+
+text(x_start + x_inc * 5, y_start + y_inc / 1.5, "Probabilities", pos = 3, cex = 0.75, font = 1)
+
+dev.off()
