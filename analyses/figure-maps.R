@@ -133,11 +133,14 @@ options(warn = -1)
 world <- sf::st_intersection(world, frame)
 ocean <- sf::st_intersection(ocean, frame)
 coast <- sf::st_intersection(coast, frame)
+mar_ap <- sf::st_intersection(mar_ap, frame)
+# ter_ap <- sf::st_intersection(ter_ap, frame)
 
 
 ## Crop graticules with lands ----
 
 grats <- sf::st_intersection(grats, ocean)
+mar_ap <- sf::st_intersection(mar_ap, ocean)
 
 options(warn = 0)
 
@@ -164,7 +167,7 @@ y_inc <- 300000
 
 ## Map ----
 
-png(filename = here::here("figures", "mouillot_etal-4.png"), width = 14.00, 
+png(filename = here::here("figures", "mouillot_etal_fig-4.png"), width = 14.00, 
     height = 14.00, units = "in", res = 600, pointsize = 18)
 
 par(mfrow = c(2, 1))
@@ -173,6 +176,9 @@ par(mar = c(0.5, 0, 1, 0), family = "serif")
 
 plot(sf::st_geometry(frame), border = NA, col = NA)
 plot(sf::st_geometry(world), border = NA, col = "#dddddd", lwd = 0.1, add = TRUE)
+
+# plot(sf::st_geometry(ter_ap), border = "#6ba249", col = NA, lwd = 0.4, add = TRUE)
+plot(sf::st_geometry(ter_ap), border = "#8c2d04", col = NA, lwd = 0.4, add = TRUE)
 
 data_ter <- SF_OBJ[SF_OBJ$Region == "Terrestrial", ]
 for (i in 1:nrow(data_ter)) {
@@ -210,6 +216,11 @@ text(x_start + x_inc * 10, y_start - y_inc / 1.5, "1.0", pos = 1, cex = 0.65)
 
 text(x_start + x_inc * 5, y_start + y_inc / 1.5, "Probabilities", pos = 3, cex = 0.75, font = 1)
 
+
+
+
+
+
 par(mar = c(1, 0, 0.5, 0), family = "serif")
 
 plot(sf::st_geometry(frame), border = NA, col = NA)
@@ -219,7 +230,8 @@ plot(sf::st_geometry(frame), border = NA, col = NA)
 plot(sf::st_geometry(ocean), border = col_grat, col = col_sea, lwd = 0.2, add = TRUE)
 plot(sf::st_geometry(grats), col = col_grat, lwd = 0.2, add = TRUE)
 
-plot(sf::st_geometry(mar_ap), border = "#6ba249", col = NA, lwd = 0.2, add = TRUE)
+# plot(sf::st_geometry(mar_ap), border = "#6ba249", col = NA, lwd = 0.4, add = TRUE)
+plot(sf::st_geometry(mar_ap), border = "#034e7b", col = NA, lwd = 0.4, add = TRUE)
 
 data_mar <- SF_OBJ[SF_OBJ$Region == "Marine", ]
 for (i in 1:nrow(data_mar)) {
