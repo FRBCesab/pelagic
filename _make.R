@@ -55,6 +55,10 @@ figname <- paste0("mouillot_etal_fig-S3")
 source(here::here("analyses", "figure_1.R"))
 
 
+## Figure S1 ----
+
+source(here::here("analyses", "figure_s1.R"))
+
 
 ## Figure 4 ----
 

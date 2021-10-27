@@ -214,7 +214,7 @@ plot(sf::st_geometry(frame), border = "black", col = NA, lwd = 1,
      add = TRUE, xpd = TRUE)
 
 
-## Legend ----
+## Axes ----
 
 text(axes[axes$"side" == 1, c("x", "y")], axes[axes$"side" == 1, "text"], 
      pos = 1, xpd = TRUE, cex = 0.65, col = "#666666")
@@ -224,6 +224,9 @@ text(axes[axes$"side" == 3, c("x", "y")], axes[axes$"side" == 3, "text"],
      pos = 3, xpd = TRUE, cex = 0.65, col = "#666666")
 text(axes[axes$"side" == 4, c("x", "y")], axes[axes$"side" == 4, "text"], 
      pos = 4, xpd = TRUE, cex = 0.65, col = "#666666")
+
+
+## Legend ----
 
 rect(x_start, y_start - y_inc, x_start + x_inc * 10, y_start + y_inc,
      border = "white", col = "white", lwd = 2)
