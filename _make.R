@@ -17,6 +17,7 @@ source(here::here("analyses", "setup.R"))
 
 type <- "points"
 
+
 ## Figure 1 ----
 
 highly_restricted <- c("Ia", "Ib")
@@ -26,7 +27,7 @@ source(here::here("analyses", "params.R"))
 source(here::here("analyses", "run_enfa.R"))
 
 figname <- paste0("mouillot_etal_fig-1")
-source(here::here("analyses", "plot_enfa.R"))
+source(here::here("analyses", "figure_1.R"))
 
 
 ## Figure S2 ----
@@ -38,7 +39,7 @@ source(here::here("analyses", "params.R"))
 source(here::here("analyses", "run_enfa.R"))
 
 figname <- paste0("mouillot_etal_fig-S2")
-source(here::here("analyses", "plot_enfa.R"))
+source(here::here("analyses", "figure_1.R"))
 
 
 
@@ -51,7 +52,7 @@ source(here::here("analyses", "params.R"))
 source(here::here("analyses", "run_enfa.R"))
 
 figname <- paste0("mouillot_etal_fig-S3")
-source(here::here("analyses", "plot_enfa.R"))
+source(here::here("analyses", "figure_1.R"))
 
 
 
@@ -59,19 +60,3 @@ source(here::here("analyses", "plot_enfa.R"))
 
 source(here::here("analyses", "figure_4.R"))
 
-
-## Supplementary Figure ----
-
-# highly_restricted <- c("Ia", "Ib", "II")
-# source(here::here("analyses", "params.R"))
-# source(here::here("analyses", "run_enfa.R"))
-# 
-# categories <- c("Non protected", "Protected", "IUCN I & II")
-# names(color_pas[["terrestrial"]]) <- categories
-# names(color_pas[["marine"]])      <- categories
-# 
-# for (type in c("points", "densities")) {
-# 
-#   figname <- paste0("Figure_Supplementary_", type)
-#   source(here::here("analyses", "plot_enfa.R"))
-# }

@@ -178,7 +178,7 @@ y_inc   <- 300000
 
 
 
-par(mar = c(4, 2, 3, 2), family = "PT sans")
+par(mar = c(4, 2, 3, 2), family = "Roboto")
 
 
 ## Base map ----
@@ -252,7 +252,7 @@ text(x_start + x_inc * 5, y_start + y_inc / 1.5,
 
 
 
-par(mar = c(4, 2, 3, 2), family = "PT sans")
+par(mar = c(4, 2, 3, 2), family = "Roboto")
 
 
 ## Base map ----

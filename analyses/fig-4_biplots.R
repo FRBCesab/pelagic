@@ -30,7 +30,7 @@ col_1 <- colorRampPalette(c("black", "white"))(length(bornes))
 
 ## Graphical parameters ----
 
-par(family = "PT sans", xaxs = "i", yaxs = "i", mgp = c(2, 0.3, 0), 
+par(family = "Roboto", xaxs = "i", yaxs = "i", mgp = c(2, 0.3, 0), 
     mar = c(4, 4, 3, 3))
 
 
