@@ -71,7 +71,7 @@ for (group in groupes) {
   
   enfa_list[[group]] <- adehabitatHS::enfa(
     dudi   = pca_list[[group]], 
-    pr     = c(datas[[group]]$"pa_category"), 
+    pr     = as.numeric(datas[[group]]$"pa_category"), 
     scannf = FALSE
   )
 

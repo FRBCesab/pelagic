@@ -55,6 +55,11 @@ source(here::here("analyses", "plot_enfa.R"))
 
 
 
+## Figure 4 ----
+
+source(here::here("analyses", "figure_4.R"))
+
+
 ## Supplementary Figure ----
 
 # highly_restricted <- c("Ia", "Ib", "II")

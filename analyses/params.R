@@ -39,7 +39,7 @@ names(color_pas[["marine"]])      <- categories
 alpha  <- 0.44
 family <- "serif"
 
-color_cat <- c("#80B9B3", "#D5AC7B")
+color_cat <- c("#008B8B", "#ee8761")
 names(color_cat) <- c("Environment", "Socioeconomic")
 
 
