@@ -158,9 +158,9 @@ col_grat <- "#bfdde9"
 
 couleurs <- c('#a50026','#d73027','#f46d43','#fdae61','#fee090','#e0f3f8',
               '#abd9e9','#74add1','#4575b4','#313695')
-couleurs <- rev(couleurs)
-couleurs <- colorRampPalette(couleurs[-c(2, 10)])
-couleurs <- rev(couleurs(10))
+# couleurs <- rev(couleurs)
+# couleurs <- colorRampPalette(couleurs[-c(2, 10)])
+# couleurs <- rev(couleurs(10))
 
 
 ## Legend position ----
@@ -194,15 +194,6 @@ plot(sf::st_geometry(ter_ap), border = "#6ba249", col = NA, lwd = 0.4,
      add = TRUE)
 
 
-## Future AP (Top10) ----
-
-data_ter <- SF_OBJ[SF_OBJ$Region == "Terrestrial", ]
-for (i in 1:nrow(data_ter)) {
-  plot(sf::st_geometry(data_ter[i, ]), col = couleurs[i], border = NA,
-       add = TRUE)
-}
-
-
 ## Masks ----
 
 plot(sf::st_geometry(ocean), border = col_grat, col = col_sea, lwd = 0.2, 
@@ -212,6 +203,15 @@ plot(sf::st_geometry(frame), border = "white", col = NA, lwd = 4,
      add = TRUE, xpd = TRUE)
 plot(sf::st_geometry(frame), border = "black", col = NA, lwd = 1, 
      add = TRUE, xpd = TRUE)
+
+
+## Future AP (Top10) ----
+
+data_ter <- SF_OBJ[SF_OBJ$Region == "Terrestrial", ]
+for (i in 1:nrow(data_ter)) {
+  plot(sf::st_geometry(data_ter[i, ]), col = couleurs[i], border = NA,
+       add = TRUE)
+}
 
 
 ## Axes ----
@@ -272,15 +272,6 @@ plot(sf::st_geometry(mar_ap), border = "#6ba249", col = NA, lwd = 0.4,
      add = TRUE)
 
 
-## Future AP (Top10) ----
-
-data_mar <- SF_OBJ[SF_OBJ$Region == "Marine", ]
-for (i in 1:nrow(data_mar)) {
-  plot(sf::st_geometry(data_mar[i, ]), col = couleurs[i], border = NA,
-       add = TRUE)
-}
-
-
 ## Masks ----
 
 plot(sf::st_geometry(world), border = col_sea, col = "#dddddd", lwd = 0.1, 
@@ -289,6 +280,15 @@ plot(sf::st_geometry(frame), border = "white", col = NA, lwd = 4,
      add = TRUE, xpd = TRUE)
 plot(sf::st_geometry(frame), border = "black", col = NA, lwd = 1, 
      add = TRUE, xpd = TRUE)
+
+
+## Future AP (Top10) ----
+
+data_mar <- SF_OBJ[SF_OBJ$Region == "Marine", ]
+for (i in 1:nrow(data_mar)) {
+  plot(sf::st_geometry(data_mar[i, ]), col = couleurs[i], border = NA,
+       add = TRUE)
+}
 
 
 ## Legend ----
