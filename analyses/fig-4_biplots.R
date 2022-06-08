@@ -26,7 +26,8 @@ col_2 <- c('#a50026','#d73027','#f46d43','#fdae61','#fee090','#e0f3f8',
 # col_2 <- rev(col_2(length(bornes)))
 
 col_1 <- colorRampPalette(c("black", "white"))(length(bornes))
-alphas <- c("E6", "CC", "B3", "99", "80", "66", "4D", "33", "1A", "00")
+alphas <- c("E6", "CC", "B3", "99", "80", "66", "4D", "33", "1A", "00") # too light
+alphas <- c("79", "66", "59", "4D", "40", "33", "26", "1A", "0D", "00")
 
 
 ## Graphical parameters ----
