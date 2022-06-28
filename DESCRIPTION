@@ -10,7 +10,7 @@ Authors@R: c(
            family = "Loiseau",
            role   = "aut",
            email  = "nicolas.loiseau1@gmail.com"))
-Description: Research compendium of the Mouillot et al.'s 2022 paper.
+Description: Research compendium of the Mouillot et al.'s 2022 paper. 
 URL: https://github.com/frbcesab/pelagic
 BugReports: https://github.com/frbcesab/pelagic/issues
 License: GPL-2
