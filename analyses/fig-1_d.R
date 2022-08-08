@@ -150,7 +150,7 @@ for (pca in c("PCA1", "PCA2")) {
   
   ## Variable categories Separation ----
   
-  abline(h = 6.5, lwd = 2, col = "white")
+  abline(h = 7.5, lwd = 2, col = "white")
 
   
   ## Plot Box ----

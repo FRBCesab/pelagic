@@ -46,11 +46,15 @@ names(color_cat) <- c("Environment", "Socioeconomic")
 ## Load Data for ENFA ----
 
 datas        <- vector("list", 2)
-datas[[1]]   <- get(load(file = here::here("data", "cov_imp_ATP.RData")))
-datas[[2]]   <- get(load(file = here::here("data", "cov_imp_AMP.RData")))
+# datas[[3]]   <- get(load(file = here::here("data", "cov_imp_ATP.RData")))
+# datas[[2]]   <- get(load(file = here::here("data", "cov_imp_AMP.RData")))
+datas[[1]]   <- get(load(file = here::here("data", "IUCN_I_VI_ATP_clean.RData")))
+datas[[2]]   <- get(load(file = here::here("data", "IUCN_I_VI_AMP_clean.RData")))
+
 names(datas) <- groupes
 
-rm(list = c("amp", "atp"))
+datas[[1]]$"island" <- as.numeric(datas[[1]]$"island")
+datas[[2]]$"island" <- as.numeric(datas[[2]]$"island")
 
 
 ## Load Variables Names ----

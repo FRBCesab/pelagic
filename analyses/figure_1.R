@@ -43,7 +43,7 @@ for (group in groupes) {
       col      = par_fg,
       col.axis = par_fg,
       fg       = par_fg,
-      family   = "Roboto",
+      family   = "serif",
       xaxs     = "r",
       yaxs     = "r")
 

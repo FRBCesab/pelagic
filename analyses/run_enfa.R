@@ -14,12 +14,13 @@ for (group in groupes) {
   
   if (group == "marine") {
     
-    var_to_log <- c("conflicts", "ngo", "dist_to_coast", "travel_time", 
-                    "dist_to_seamounts", "chloro_a")
+    var_to_log <- c("conflicts", "ngo", "dist_to_coast", "accessibility", 
+                    "dist_to_seamounts", "chloro_a", "gdp", "human_footprint")
   } else {
     
-    var_to_log <- c("conflicts", "ngo", "dist_to_ocean", "pop_density", 
-                    "annual_precipitation")
+    var_to_log <- c("conflicts", "ngo", "dist_to_ocean", "accessibility", 
+                    "annual_precipitation", "altitude", "freshwater", "gdp",
+                    "human_footprint")
   }
   
   datas[[group]][ , var_to_log] <- log10(datas[[group]][ , var_to_log] + 1)

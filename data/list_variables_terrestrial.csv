@@ -1,13 +1,15 @@
 code,variable,family
-conflicts,Conflict Score,Socioeconomic
-hdi,HDI,Socioeconomic
-natural_resources,Natural Ressouces,Socioeconomic
-ngo,NGO,Socioeconomic
-pop_density,Population Density,Socioeconomic
-voice,Voice,Socioeconomic
-altitude,Altitude,Environment
-annual_precipitation,Annual Precipitation,Environment
-dist_to_ocean,Distance to ocean,Environment
-freshwater,Freshwater,Environment
 island,Island,Environment
 mean_temperature,Mean Temperature,Environment
+annual_precipitation,Annual Precipitation,Environment
+altitude,Altitude,Environment
+dist_to_ocean,Distance to ocean,Environment
+freshwater,Freshwater,Environment
+ndvi,NDVI,Environment
+gdp,Local GDP,Socioeconomic
+conflicts,Conflict Score,Socioeconomic
+voice,Voice,Socioeconomic
+ngo,NGO,Socioeconomic
+natural_resources,Natural Ressouces,Socioeconomic
+accessibility,Accessibility,Socioeconomic
+human_footprint,Human footprint,Socioeconomic
