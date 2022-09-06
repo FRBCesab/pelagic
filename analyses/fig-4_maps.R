@@ -22,7 +22,11 @@ for (i in 1:length(regions)) {
   ## Load Data ----
 
   datas <- get(load(here::here("data", paste0("datZ", regions[i], ".RData"))))
-
+  preds <- get(load(here::here("data", paste0("final_predictions_", tolower(llabels[i]), ".Rdata"))))
+  preds <- preds[ , c("PA", "PredictedProtection")]
+  colnames(preds) <- c("ID", "PredictedProtection")
+  datas <- merge(datas, preds, by = "ID", all = FALSE)
+  
 
   ## Load Raster ----
 
@@ -69,7 +73,7 @@ for (i in 1:length(regions)) {
 
   for (j in 1:nrow(cats)) {
 
-    pos <- which(tab$"proba" >= cats[j, "from"] & tab$"proba" < cats[j, "to"])
+    pos <- which(tab$"PredictedProtection" >= cats[j, "from"] & tab$"PredictedProtection" < cats[j, "to"])
 
     if (length(pos)) {
 

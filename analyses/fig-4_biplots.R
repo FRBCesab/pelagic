@@ -41,8 +41,12 @@ for (i in 1:length(regions)) {
   ## Load Data ----
 
   datas <- get(load(here::here("data", paste0("datZ", regions[i], ".RData"))))
-
-
+  preds <- get(load(here::here("data", paste0("final_predictions_", tolower(llabels[i]), ".Rdata"))))
+  preds <- preds[ , c("PA", "PredictedProtection")]
+  colnames(preds) <- c("ID", "PredictedProtection")
+  datas <- merge(datas, preds, by = "ID", all = FALSE)
+  
+  
   ## Load Raster ----
 
   ras   <- raster::raster(here::here("data", paste0("Cells", regions[i],
@@ -64,7 +68,7 @@ for (i in 1:length(regions)) {
   dat[which(dat$RankZ >= rank), "top10"] <- TRUE
 
 
-  ## Convert to probabilities ----
+  ## Convert to PredictedProtectionbilities ----
 
   # dat10 <- dat[dat$"top10" == TRUE, ]
 
@@ -87,7 +91,7 @@ for (i in 1:length(regions)) {
 
   for (j in 1:nrow(cats)) {
 
-    pos <- which(tab$"proba" >= cats[j, "from"] & tab$"proba" < cats[j, "to"])
+    pos <- which(tab$"PredictedProtection" >= cats[j, "from"] & tab$"PredictedProtection" < cats[j, "to"])
 
     if (length(pos)) {
 
@@ -116,19 +120,19 @@ for (i in 1:length(regions)) {
     
       pos <- which(tab$"RankZ" >= (bornes[k] - increment) & 
                    tab$"RankZ" <= (bornes[k]) &
-                   tab$"proba" >= (bornes[j] - increment) &
-                   tab$"proba" <= (bornes[j]))
+                   tab$"PredictedProtection" >= (bornes[j] - increment) &
+                   tab$"PredictedProtection" <= (bornes[j]))
 
       if (length(pos)) {
   
         invisible(lapply(pos, function(x) {
           
           points(x = tab[x, "RankZ", drop = TRUE],
-                 y = tab[x, "proba", drop = TRUE],
+                 y = tab[x, "PredictedProtection", drop = TRUE],
                  pch = 21, bg = paste0(col_2[j], "FF"), col = NA)
           
           points(x = tab[x, "RankZ", drop = TRUE],
-                 y = tab[x, "proba", drop = TRUE],
+                 y = tab[x, "PredictedProtection", drop = TRUE],
                  pch = 21, bg = paste0(col_1[10], alphas[k]), col = NA)
           
         }))
@@ -161,7 +165,7 @@ for (i in 1:length(regions)) {
   
   ## Top-left Box ----
   
-  n <- length(which(dat$"RankZ" <= 0.1 & dat$"proba" >= 0.9))
+  n <- length(which(dat$"RankZ" <= 0.1 & dat$"PredictedProtection" >= 0.9))
 
   rect(0.0, 0.9, 0.1, 1.0, lwd = 6, border = "white", xpd = TRUE)
   rect(0.0, 0.9, 0.1, 1.0, lwd = 3, border = "black", xpd = TRUE)
@@ -172,7 +176,7 @@ for (i in 1:length(regions)) {
   
   ## Top-right Box ----
   
-  n <- length(which(dat$"RankZ" >= 0.9 & dat$"proba" >= 0.9))
+  n <- length(which(dat$"RankZ" >= 0.9 & dat$"PredictedProtection" >= 0.9))
   
   rect(0.9, 0.9, 1.0, 1.0, lwd = 6, border = "white", xpd = TRUE)
   rect(0.9, 0.9, 1.0, 1.0, lwd = 3, border = "black", xpd = TRUE)
@@ -183,7 +187,7 @@ for (i in 1:length(regions)) {
   
   ## Bottom-right Box ----
   
-  n <- length(which(dat$"RankZ" >= 0.9 & dat$"proba" <= 0.1))
+  n <- length(which(dat$"RankZ" >= 0.9 & dat$"PredictedProtection" <= 0.1))
   
   rect(0.9, 0.0, 1.0, 0.1, lwd = 6, border = "white", xpd = TRUE)
   rect(0.9, 0.0, 1.0, 0.1, lwd = 3, border = "black", xpd = TRUE)
@@ -194,7 +198,7 @@ for (i in 1:length(regions)) {
   
   ## Bottom-left Box ----
   
-  n <- length(which(dat$"RankZ" <= 0.1 & dat$"proba" <= 0.1))
+  n <- length(which(dat$"RankZ" <= 0.1 & dat$"PredictedProtection" <= 0.1))
 
   rect(0.0, 0.0, 0.1, 0.1, lwd = 6, border = "white", xpd = TRUE)
   rect(0.0, 0.0, 0.1, 0.1, lwd = 3, border = "black", xpd = TRUE)
