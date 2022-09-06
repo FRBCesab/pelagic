@@ -194,7 +194,7 @@ plot(sf::st_geometry(world), border = NA, col = "#dddddd", lwd = 0.1,
 
 ## Current AP ----
 
-plot(sf::st_geometry(ter_ap), border = "#6ba249", col = NA, lwd = 0.4, 
+plot(sf::st_geometry(ter_ap), border = "#6ba249", col = NA, lwd = 0.4,
      add = TRUE)
 
 
@@ -251,6 +251,7 @@ text(x_start + x_inc * 10, y_start - y_inc / 1.5, "1.0", pos = 1, cex = 1)
 text(x_start + x_inc * 5, y_start + y_inc / 1.5, 
      "Probability of protecting\nunprotected areas", pos = 3, cex = 1, font = 2)
 
+mtext("c", line = 0.75, side = 3, adj = 0, font = 2, cex = 1.2)
 
 
 ### 
@@ -272,7 +273,7 @@ plot(sf::st_geometry(grats), col = col_grat, lwd = 0.2, add = TRUE)
 
 ## Current AP ----
 
-plot(sf::st_geometry(mar_ap), border = "#6ba249", col = NA, lwd = 0.4, 
+plot(sf::st_geometry(mar_ap), border = "#6ba249", col = NA, lwd = 0.4,
      add = TRUE)
 
 
@@ -324,3 +325,5 @@ text(x_start + x_inc * 10, y_start - y_inc / 1.5, "1.0", pos = 1, cex = 1)
 
 text(x_start + x_inc * 5, y_start + y_inc / 1.5, 
      "Probability of protecting\nunprotected areas", pos = 3, cex = 1, font = 2)
+
+mtext("d", line = 0.75, side = 3, adj = 0, font = 2, cex = 1.2)

@@ -115,26 +115,26 @@ for (i in 1:length(regions)) {
   ## Add points ----
   
   for (j in 1:(length(bornes))) { # Color
-    
+
     for (k in 1:(length(bornes))) { # Transparency
-    
-      pos <- which(tab$"RankZ" >= (bornes[k] - increment) & 
+
+      pos <- which(tab$"RankZ" >= (bornes[k] - increment) &
                    tab$"RankZ" <= (bornes[k]) &
                    tab$"PredictedProtection" >= (bornes[j] - increment) &
                    tab$"PredictedProtection" <= (bornes[j]))
 
       if (length(pos)) {
-  
+
         invisible(lapply(pos, function(x) {
-          
+
           points(x = tab[x, "RankZ", drop = TRUE],
                  y = tab[x, "PredictedProtection", drop = TRUE],
                  pch = 21, bg = paste0(col_2[j], "FF"), col = NA)
-          
+
           points(x = tab[x, "RankZ", drop = TRUE],
                  y = tab[x, "PredictedProtection", drop = TRUE],
                  pch = 21, bg = paste0(col_1[10], alphas[k]), col = NA)
-          
+
         }))
       }
     }
@@ -219,6 +219,6 @@ for (i in 1:length(regions)) {
   
   ## Subplot Title ----
   
-  mtext(LETTERS[i], line = 0.75, side = 3, adj = -0.100, font = 2, cex = 1.2)
+  mtext(letters[i], line = 0.75, side = 3, adj = -0.100, font = 2, cex = 1.2)
   mtext(llabels[i], line = 0.75, side = 3, adj = -0.025, font = 2, cex = 1.2)
 }
