@@ -34,7 +34,7 @@ for (category in categories) {
   
   ## Compute Density ----
   
-  densities[[category]] <- density(subdatas[[category]]$"PCA2")
+  densities[[category]] <- density(subdatas[[category]]$"PCA2", adjust = 4)
 }
 
 xrng <- range(datas[[group]]$"PCA2")
