@@ -10,3 +10,5 @@ data/wdpa/
 data/wdpa_polygons.rds
 data/World_EEZ_v11_20191118_gpkg/
 data/gadm36.gpkg
+outputs/
+

@@ -29,6 +29,14 @@ source(here::here("analyses", "run_enfa.R"))
 figname <- paste0("mouillot_etal_fig-1")
 source(here::here("analyses", "figure_1.R"))
 
+longlat <- get(load("data/IUCN_I_VI_ATP_coords.RData"))
+datas[[1]] <- cbind(longlat, datas[[1]])
+
+longlat <- get(load("data/IUCN_I_VI_AMP_coords.RData"))
+datas[[2]] <- cbind(longlat, datas[[2]])
+
+save(datas, file = "outputs/enfa_coords_all_vars.RData")
+
 
 ## Figure S2 ----
 
@@ -42,6 +50,15 @@ figname <- paste0("mouillot_etal_fig-S2")
 source(here::here("analyses", "figure_1.R"))
 
 
+longlat <- get(load("data/IUCN_I_VI_ATP_coords.RData"))
+datas[[1]] <- cbind(longlat, datas[[1]])
+
+longlat <- get(load("data/IUCN_I_VI_AMP_coords.RData"))
+datas[[2]] <- cbind(longlat, datas[[2]])
+
+save(datas, file = "outputs/enfa_coords_only_socio.RData")
+
+
 
 ## Figure S3 ----
 
@@ -53,6 +70,16 @@ source(here::here("analyses", "run_enfa.R"))
 
 figname <- paste0("mouillot_etal_fig-S3")
 source(here::here("analyses", "figure_1.R"))
+
+
+longlat <- get(load("data/IUCN_I_VI_ATP_coords.RData"))
+datas[[1]] <- cbind(longlat, datas[[1]])
+
+longlat <- get(load("data/IUCN_I_VI_AMP_coords.RData"))
+datas[[2]] <- cbind(longlat, datas[[2]])
+
+save(datas, file = "outputs/enfa_coords_only_env.RData")
+
 
 
 ## Figure S1 ----
