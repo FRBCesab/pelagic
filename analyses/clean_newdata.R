@@ -21,6 +21,11 @@ save(datas_ter, file = "data/IUCN_I_VI_ATP_clean.RData")
 save(lonlat, file = "data/IUCN_I_VI_ATP_coords.RData")
 
 
+
+################################################################################
+
+
+
 old <- get(load("data/cov_imp_AMP.RData"))
 new <- get(load("data/IUCN.I.VI.AMP.RData"))
 dat <- get(load("data/IUCN_I_VI_AMP_clean.RData"))
@@ -30,7 +35,7 @@ new <- new[ , -c(1, 8)]
 colnames(new) <- c("iucn_category", "reserve", "long", "lat", "conflicts", "voice", "ngo",
                    "marine_ecosystem_dependency", "bathymetry", "dist_to_coast",
                    "accessibility", "island", "dist_to_seamounts", "sst", "chloro_a",
-                   "human_footprint", "salinity", "gdp")
+                   "salinity", "gdp", "human_footprint")
 
 pas <- read.csv("data/pa_cats.csv")
 

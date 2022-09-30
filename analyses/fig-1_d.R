@@ -19,7 +19,7 @@ plot(0, type = "n", xlim = c(0, 1), ylim = c(-1, nnn + 2), ann  = FALSE,
 abline(h = 0.5, lwd = 2, col = "white")
 
 text(x = rep(1.05, nnn), y = 1:nnn, labels = vars_coords[[group]]$variable, pos = 2,
-     cex = 0.9)
+     cex = 0.85)
 
 lines(x = c(par()$usr[1], par()$usr[2]), y = rep(par()$usr[3], 2), lwd = .5)
 lines(x = c(par()$usr[1], par()$usr[2]), y = rep(par()$usr[4], 2), lwd = .5)
@@ -62,29 +62,39 @@ for (pca in c("PCA1", "PCA2")) {
   # 
   
   if (variables_type == "all") {
+    if (group == "terrestrial" && pca == "PCA1") {
+      where <- where
+    }
     if (group == "terrestrial" && pca == "PCA2") {
-      where <- where[-length(where)]
+      where <- where
+    }
+    if (group == "marine" && pca == "PCA1") {
+      where <- where
     }
     if (group == "marine" && pca == "PCA2") {
-      where <- where[-1]
+      where <- where[-length(where)]
     }
   }
   
   if (variables_type == "Socioeconomic") {
     if (group == "terrestrial" && pca == "PCA1") {
-      where <- where[-1]
+      where <- where
     }
     if (group == "terrestrial" && pca == "PCA2") {
-      where <- where[-c(1, length(where))]
+      where <- where
+    }
+    if (group == "marine" && pca == "PCA1") {
+      where <- where[-1]
     }
     if (group == "marine" && pca == "PCA2") {
-      where <- where[-length(where)]
+      where <- where
     }
   }
   
+  
   if (variables_type == "Environment") {
     if (group == "marine" && pca == "PCA2") {
-      where <- where[-c(1, length(where))]
+      where <- where[-1]
     }
   }
   
@@ -94,7 +104,6 @@ for (pca in c("PCA1", "PCA2")) {
 
     text(x = i, y = 0.5, labels = i, pos = 1, col = par_fg, cex = 0.65, 
          xpd = TRUE)
-    # lines(x = rep(i, 2), y = c(1 - 0.50,   1 - 0.60), col = par_fg, lwd = 0.5)
     lines(x = rep(i, 2), y = c(1 - 0.33, nnn + 0.55), col = "#999999", 
           lwd = 0.5, lty = 3)
   }

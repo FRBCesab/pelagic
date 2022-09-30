@@ -14,18 +14,20 @@ for (group in groupes) {
   
   if (group == "marine") {
     
-    var_to_log <- c("conflicts", "ngo", "dist_to_coast", "accessibility", 
-                    "dist_to_seamounts", "chloro_a", "gdp", "human_footprint")
+    var_to_log <- c("chloro_a", "dist_to_seamounts", "dist_to_coast", "gdp", 
+                    "conflicts", "ngo", "accessibility")
     
     var_to_minusX_log <- "bathymetry"
+    var_to_5X_log     <- "human_footprint"
     
-    datas[[group]][ , var_to_log] <- log10(datas[[group]][ , var_to_log] + 1)
-    datas[[group]][ , var_to_minusX_log] <- log10(-(datas[[group]][ , var_to_minusX_log]) + 1)
+    datas[[group]][ , var_to_log]        <- log10(datas[[group]][ , var_to_log] + 1)
+    datas[[group]][ , var_to_minusX_log] <- log10(-1 * (datas[[group]][ , var_to_minusX_log]) + 1)
+    datas[[group]][ , var_to_5X_log]     <- log10( 5 * (datas[[group]][ , var_to_5X_log]) + 1)
     
   } else {
     
-    var_to_log <- c("conflicts", "ngo", "dist_to_ocean", "accessibility", 
-                    "annual_precipitation", "altitude", "freshwater", "gdp",
+    var_to_log <- c("annual_precipitation", "altitude", "dist_to_ocean", "gdp",
+                    "conflicts", "ngo", "natural_resources", "accessibility", 
                     "human_footprint")
    
      datas[[group]][ , var_to_log] <- log10(datas[[group]][ , var_to_log] + 1)

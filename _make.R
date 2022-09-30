@@ -84,10 +84,10 @@ save(datas, file = "outputs/enfa_coords_only_env.RData")
 
 ## Figure S1 ----
 
-source(here::here("analyses", "figure_s1.R"))
+# source(here::here("analyses", "figure_s1.R"))
 
 
 ## Figure 4 ----
 
-source(here::here("analyses", "figure_4.R"))
+# source(here::here("analyses", "figure_4.R"))
 
