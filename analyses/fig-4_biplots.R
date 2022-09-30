@@ -41,8 +41,8 @@ for (i in 1:length(regions)) {
   ## Load Data ----
 
   datas <- get(load(here::here("data", paste0("datZ", regions[i], ".RData"))))
-  preds <- get(load(here::here("data", paste0("final_predictions_", tolower(llabels[i]), ".Rdata"))))
-  preds <- preds[ , c("PA", "PredictedProtection")]
+  preds <- get(load(here::here("data", paste0("res_prob_", tolower(llabels[i]), ".Rdata"))))
+  preds <- preds[ , c("PA", "corr.rf.response")]
   colnames(preds) <- c("ID", "PredictedProtection")
   datas <- merge(datas, preds, by = "ID", all = FALSE)
   
