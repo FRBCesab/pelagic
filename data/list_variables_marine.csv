@@ -1,15 +1,15 @@
-code,variable,family
-island,Island,Environment
-sst,Mean SST,Environment
-chloro_a,Chlorophyll A,Environment
-bathymetry,Depth,Environment
-dist_to_seamounts,Distance to seamount,Environment
-dist_to_coast,Distance to coast,Environment
-salinity,Salinity,Environment
-gdp,Local GDP,Socioeconomic
-conflicts,Conflict Score,Socioeconomic
-voice,Voice,Socioeconomic
-ngo,NGO,Socioeconomic
-marine_ecosystem_dependency,Sea Dependency,Socioeconomic
-accessibility,Accessibility,Socioeconomic
-human_footprint,Human footprint,Socioeconomic
+code,variable,family,order
+island,Island,Environment,3
+sst,Mean Temperature,Environment,7
+chloro_a,Chlorophyll A,Environment,6
+bathymetry,Bathymetry,Environment,1
+dist_to_seamounts,Distance to Seamount,Environment,4
+dist_to_coast,Distance to Mainland,Environment,2
+salinity,Salinity,Environment,5
+gdp,Local GDP,Socioeconomic,8
+conflicts,Conflict,Socioeconomic,10
+hdi,HDI,Socioeconomic,11
+ngo,NGO,Socioeconomic,12
+marine_ecosystem_dependency,Fish. Dependency,Socioeconomic,14
+accessibility,Accessibility,Socioeconomic,13
+human_footprint,Human Footprint,Socioeconomic,9

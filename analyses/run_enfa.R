@@ -120,8 +120,8 @@ for (group in groupes) {
   socio <- coords[coords$"family" == "Socioeconomic", ]
   envir <- coords[coords$"family" != "Socioeconomic", ]
 
-  socio <- socio[order(abs(socio$"PCA1"), decreasing = FALSE), ]
-  envir <- envir[order(abs(envir$"PCA1"), decreasing = FALSE), ]
+  socio <- socio[order(abs(socio$"order"), decreasing = FALSE), ]
+  envir <- envir[order(abs(envir$"order"), decreasing = FALSE), ]
 
   vars_coords[[group]] <- rbind(envir, socio)
   

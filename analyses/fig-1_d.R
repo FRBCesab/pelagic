@@ -72,19 +72,19 @@ for (pca in c("PCA1", "PCA2")) {
       where <- where
     }
     if (group == "marine" && pca == "PCA2") {
-      where <- where[-length(where)]
+      where <- where
     }
   }
   
   if (variables_type == "Socioeconomic") {
     if (group == "terrestrial" && pca == "PCA1") {
-      where <- where
+      where <- where[-length(where)]
     }
     if (group == "terrestrial" && pca == "PCA2") {
-      where <- where
+      where <- where[-length(where)]
     }
     if (group == "marine" && pca == "PCA1") {
-      where <- where[-1]
+      where <- where
     }
     if (group == "marine" && pca == "PCA2") {
       where <- where

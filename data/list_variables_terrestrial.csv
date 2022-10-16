@@ -1,15 +1,15 @@
-code,variable,family
-island,Island,Environment
-mean_temperature,Mean Temperature,Environment
-annual_precipitation,Annual Precipitation,Environment
-altitude,Altitude,Environment
-dist_to_ocean,Distance to ocean,Environment
-freshwater,Freshwater,Environment
-ndvi,NDVI,Environment
-gdp,Local GDP,Socioeconomic
-conflicts,Conflict Score,Socioeconomic
-voice,Voice,Socioeconomic
-ngo,NGO,Socioeconomic
-natural_resources,Natural Resources,Socioeconomic
-accessibility,Accessibility,Socioeconomic
-human_footprint,Human footprint,Socioeconomic
+code,variable,family,order
+island,Island,Environment,3
+mean_temperature,Temperature,Environment,7
+annual_precipitation,Precipitation,Environment,4
+altitude,Altitude,Environment,1
+dist_to_ocean,Distance to Ocean,Environment,2
+freshwater,Freshwater,Environment,5
+ndvi,NDVI,Environment,6
+gdp,Local GDP,Socioeconomic,8
+conflicts,Conflict,Socioeconomic,10
+hdi,HDI,Socioeconomic,11
+ngo,NGO,Socioeconomic,12
+natural_resources,Natural Resources,Socioeconomic,14
+accessibility,Accessibility,Socioeconomic,13
+human_footprint,Human Footprint,Socioeconomic,9

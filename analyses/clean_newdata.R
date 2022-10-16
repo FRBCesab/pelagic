@@ -2,10 +2,10 @@ old <- get(load("data/cov_imp_ATP.RData"))
 new <- get(load("data/IUCN.I.VI.ATP.RData"))
 dat <- get(load("data/IUCN_I_VI_ATP_clean.RData"))
 
-new <- new[ , -c(1, 6:7, 12, 16)]
+new <- new[ , -c(1, 6:7, 9, 16)]
 
-colnames(new) <- c("long", "lat", "iucn_category", "reserve", "conflicts", "voice",
-                   "natural_resources", "ngo", "altitude", "dist_to_ocean",
+colnames(new) <- c("long", "lat", "iucn_category", "reserve", "conflicts", 
+                   "natural_resources", "ngo", "hdi", "altitude", "dist_to_ocean",
                    "island", "annual_precipitation", "mean_temperature",
                    "freshwater", "gdp", "accessibility", "ndvi", "human_footprint")
 
@@ -30,9 +30,9 @@ old <- get(load("data/cov_imp_AMP.RData"))
 new <- get(load("data/IUCN.I.VI.AMP.RData"))
 dat <- get(load("data/IUCN_I_VI_AMP_clean.RData"))
 
-new <- new[ , -c(1, 8)]
+new <- new[ , -c(1, 7)]
 
-colnames(new) <- c("iucn_category", "reserve", "long", "lat", "conflicts", "voice", "ngo",
+colnames(new) <- c("iucn_category", "reserve", "long", "lat", "conflicts", "hdi", "ngo",
                    "marine_ecosystem_dependency", "bathymetry", "dist_to_coast",
                    "accessibility", "island", "dist_to_seamounts", "sst", "chloro_a",
                    "salinity", "gdp", "human_footprint")
