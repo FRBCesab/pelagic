@@ -83,16 +83,16 @@ xy    <- data.frame(ID = ras[][cells], raster::xyFromCell(ras, cells))
 dat <- merge(xy, datas, by = "ID", all = TRUE)
 
 
-## Compute Top10 ----
-
-rank <- 0.9 * max(dat$RankZ)
-dat$"top10" <- FALSE
-dat[which(dat$RankZ >= rank), "top10"] <- TRUE
-
-
-## Select Top10 ----
-
-dat <- dat[dat$"top10" == TRUE, ]
+# ## Compute Top10 ----
+# 
+# rank <- 0.9 * max(dat$RankZ)
+# dat$"top10" <- FALSE
+# dat[which(dat$RankZ >= rank), "top10"] <- TRUE
+# 
+# 
+# ## Select Top10 ----
+# 
+# dat <- dat[dat$"top10" == TRUE, ]
 
 
 ## Convert to sf ----
@@ -248,16 +248,16 @@ xy    <- data.frame(ID = ras[][cells], raster::xyFromCell(ras, cells))
 dat <- merge(xy, datas, by = "ID", all = TRUE)
 
 
-## Compute Top10 ----
-
-rank <- 0.9 * max(dat$RankZ)
-dat$"top10" <- FALSE
-dat[which(dat$RankZ >= rank), "top10"] <- TRUE
-
-
-## Select Top10 ----
-
-dat <- dat[dat$"top10" == TRUE, ]
+# ## Compute Top10 ----
+# 
+# rank <- 0.9 * max(dat$RankZ)
+# dat$"top10" <- FALSE
+# dat[which(dat$RankZ >= rank), "top10"] <- TRUE
+# 
+# 
+# ## Select Top10 ----
+# 
+# dat <- dat[dat$"top10" == TRUE, ]
 
 
 ## Convert to sf ----
