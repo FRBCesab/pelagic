@@ -1,3 +1,26 @@
+## Parameters ----
+
+regions <- c("Land", "Sea")
+llabels <- c("Terrestrial", "Marine")
+
+
+## Coordinates systems ----
+
+lon_lat   <- paste("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84", 
+                   "+towgs84=0,0,0")
+mollweide <- paste("+proj=moll +lon_0=0 +x_0=0 +y_0=0 +datum=WGS84 ", 
+                   "+units=m +no_defs")
+robinson  <- paste("+proj=robin +lon_0=0 +x_0=0 +y_0=0 +ellps=WGS84", 
+                   "+datum=WGS84 +units=m +no_defs")
+
+
+## Map guides ----
+
+frame <- map_frame(crs = robinson)
+grats <- map_graticules(crs = robinson)
+axes  <- map_axes(crs = robinson)
+
+
 ## Import basemap Layers ----
 
 world <- rnaturalearth::ne_countries(scale = 50, returnclass = "sf")
@@ -31,22 +54,6 @@ coast <- sf::st_intersection(coast, frame)
 grats <- sf::st_intersection(grats, ocean)
 
 options(warn = 0)
-
-
-## Parameters ----
-
-regions <- c("Land", "Sea")
-llabels <- c("Terrestrial", "Marine")
-
-
-## Coordinates systems ----
-
-lon_lat   <- paste("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84", 
-                   "+towgs84=0,0,0")
-mollweide <- paste("+proj=moll +lon_0=0 +x_0=0 +y_0=0 +datum=WGS84 ", 
-                   "+units=m +no_defs")
-robinson  <- paste("+proj=robin +lon_0=0 +x_0=0 +y_0=0 +ellps=WGS84", 
-                   "+datum=WGS84 +units=m +no_defs")
 
 
 ## Prepare data ----
@@ -128,13 +135,6 @@ if (length(pos) > 0)
   world[pos, "couleur"] <- "#dddddd"
 
 
-## Map guides ----
-
-frame <- map_frame(crs = robinson)
-grats <- map_graticules(crs = robinson)
-axes  <- map_axes(crs = robinson)
-
-
 ## Colors ----
 
 col_sea  <- "#e5f1f6"
@@ -196,13 +196,13 @@ text(axes[axes$"side" == 4, c("x", "y")], axes[axes$"side" == 4, "text"],
 rect(x_start, y_start - y_inc, x_start + x_inc * 10, y_start + y_inc,
      border = "white", col = "white", lwd = 2)
 
-for (i in 1:length(couleurs)) {
+for (i in 1:nrow(cats)) {
   
   rect(x_start + x_inc * (i - 1), 
        y_start - y_inc, 
        x_start + x_inc * i, 
        y_start + y_inc,
-       border = NA, col = couleurs[i])
+       border = NA, col = cats[i, "couleur"])
 }
 
 text(x_start, y_start - y_inc / 1.5, "0.0", pos = 1, cex = 1)
@@ -338,13 +338,13 @@ text(axes[axes$"side" == 4, c("x", "y")], axes[axes$"side" == 4, "text"],
 rect(x_start, y_start - y_inc, x_start + x_inc * 10, y_start + y_inc,
      border = "white", col = "white", lwd = 2)
 
-for (i in 1:length(couleurs)) {
+for (i in 1:nrow(cats)) {
   
   rect(x_start + x_inc * (i - 1), 
        y_start - y_inc, 
        x_start + x_inc * i, 
        y_start + y_inc,
-       border = NA, col = couleurs[i])
+       border = NA, col = cats[i, "couleur"])
 }
 
 text(x_start, y_start - y_inc / 1.5, "0.0", pos = 1, cex = 1)
