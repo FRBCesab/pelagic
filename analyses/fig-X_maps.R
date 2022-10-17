@@ -120,7 +120,7 @@ cats <- data.frame(from = seq(0, 1 - increment, by = increment),
                    to   = seq(0 + increment, 1, by = increment))
 
 cats$"couleur" <- c('#a50026', '#d73027', '#f46d43', '#fdae61', '#fee090',
-                    '#e0f3f8', '#abd9e9', '#74add1', '#4575b4', '#313695')
+                    '#81B8D7', '#659AC7', '#4D7AB7', '#38559C', '#24286f')
 
 for (j in 1:nrow(cats)) {
   
@@ -162,9 +162,9 @@ par(mar = c(4, 2, 3, 2), family = "Roboto")
 ## Base map ----
 
 plot(sf::st_geometry(frame), border = NA, col = NA)
-# plot(sf::st_geometry(world), border = NA, col = "#dddddd", lwd = 0.1, 
-#      add = TRUE)
-plot(sf::st_geometry(world), border = "white", col = world$"couleur", lwd = 0.2, 
+plot(sf::st_geometry(world), border = "white", col = world$"couleur", lwd = 0.4, 
+     add = TRUE)
+plot(sf::st_geometry(world), border = "#aaaaaa", col = NA, lwd = 0.2, 
      add = TRUE)
 
 
@@ -285,7 +285,7 @@ cats <- data.frame(from = seq(0, 1 - increment, by = increment),
                    to   = seq(0 + increment, 1, by = increment))
 
 cats$"couleur" <- c('#a50026', '#d73027', '#f46d43', '#fdae61', '#fee090',
-                    '#e0f3f8', '#abd9e9', '#74add1', '#4575b4', '#313695')
+                    '#81B8D7', '#659AC7', '#4D7AB7', '#38559C', '#24286f')
 
 for (j in 1:nrow(cats)) {
   
@@ -316,7 +316,9 @@ plot(sf::st_geometry(grats), col = col_grat, lwd = 0.2, add = TRUE)
 
 # plot(sf::st_geometry(world), border = col_sea, col = "#dddddd", lwd = 0.1, 
 #      add = TRUE)
-plot(sf::st_geometry(eez), border = "#aaaaaa", col = eez$"couleur", lwd = 0.2, 
+plot(sf::st_geometry(eez), border = "white", col = eez$"couleur", lwd = 0.4, 
+     add = TRUE)
+plot(sf::st_geometry(eez), border = "#aaaaaa", col = NA, lwd = 0.2, 
      add = TRUE)
 plot(sf::st_geometry(frame), border = "white", col = NA, lwd = 4,
      add = TRUE, xpd = TRUE)
