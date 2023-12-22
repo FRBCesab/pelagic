@@ -107,7 +107,7 @@ for (i in 1:length(regions)) {
        axes = FALSE, 
        xlab = "Ranking of unprotected areas for conservation benefits", 
        ylab = "Probability of protecting unprotected areas", cex.axis = 1.2, 
-       font.lab = 2, cex.lab = 1.25)
+       font.lab = 2, cex.lab = 1.35)
   
   grid()
   
@@ -169,7 +169,7 @@ for (i in 1:length(regions)) {
 
   rect(0.0, 0.9, 0.1, 1.0, lwd = 6, border = "white", xpd = TRUE)
   rect(0.0, 0.9, 0.1, 1.0, lwd = 3, border = "black", xpd = TRUE)
-  shadow_text(0.03, 0.8, paste0("Easy low gain\nn = ", n, ""), font = 2, 
+  shadow_text(0.01, 0.8, paste0("Potential low gain\nn = ", n, ""), font = 2, 
               xpd = TRUE, col = "black", bg = "white", pos = 4, cex = 1.45, 
               radius = 0.15)
   
@@ -180,7 +180,7 @@ for (i in 1:length(regions)) {
   
   rect(0.9, 0.9, 1.0, 1.0, lwd = 6, border = "white", xpd = TRUE)
   rect(0.9, 0.9, 1.0, 1.0, lwd = 3, border = "black", xpd = TRUE)
-  shadow_text(0.97, 0.8, paste0("Easy high gain\nn = ", n, ""), font = 2, 
+  shadow_text(0.99, 0.8, paste0("Potential high gain\nn = ", n, ""), font = 2, 
               xpd = TRUE, col = "black", bg = "white", pos = 2, cex = 1.45, 
               radius = 0.15)
   
@@ -191,7 +191,7 @@ for (i in 1:length(regions)) {
   
   rect(0.9, 0.0, 1.0, 0.1, lwd = 6, border = "white", xpd = TRUE)
   rect(0.9, 0.0, 1.0, 0.1, lwd = 3, border = "black", xpd = TRUE)
-  shadow_text(0.97, 0.18, paste0("Hard high gain\nn = ", n, ""), font = 2, 
+  shadow_text(0.99, 0.18, paste0("Unrealistic high gain\nn = ", n, ""), font = 2, 
               xpd = TRUE, col = "black", bg = "white", pos = 2, cex = 1.45, 
               radius = 0.15)
 
@@ -202,7 +202,7 @@ for (i in 1:length(regions)) {
 
   rect(0.0, 0.0, 0.1, 0.1, lwd = 6, border = "white", xpd = TRUE)
   rect(0.0, 0.0, 0.1, 0.1, lwd = 3, border = "black", xpd = TRUE)
-  shadow_text(0.03, 0.18, paste0("Hard low gain\nn = ", n, ""), font = 2, 
+  shadow_text(0.01, 0.18, paste0("Unrealistic low gain\nn = ", n, ""), font = 2, 
               xpd = TRUE, col = "black", bg = "white", pos = 4, cex = 1.45, 
               radius = 0.15)
   

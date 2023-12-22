@@ -232,24 +232,24 @@ text(axes[axes$"side" == 4, c("x", "y")], axes[axes$"side" == 4, "text"],
 
 ## Legend ----
 
-rect(x_start, y_start - y_inc, x_start + x_inc * 10, y_start + y_inc,
-     border = "white", col = "white", lwd = 2)
-
-for (i in 1:length(couleurs)) {
-  
-  rect(x_start + x_inc * (i - 1), 
-       y_start - y_inc, 
-       x_start + x_inc * i, 
-       y_start + y_inc,
-       border = NA, col = couleurs[i])
-}
-
-text(x_start, y_start - y_inc / 1.5, "0.0", pos = 1, cex = 1)
-text(x_start + x_inc * 5, y_start - y_inc / 1.5, "0.5", pos = 1, cex = 1)
-text(x_start + x_inc * 10, y_start - y_inc / 1.5, "1.0", pos = 1, cex = 1)
-
-text(x_start + x_inc * 5, y_start + y_inc / 1.5, 
-     "Probability of protecting\nunprotected areas", pos = 3, cex = 1, font = 2)
+# rect(x_start, y_start - y_inc, x_start + x_inc * 10, y_start + y_inc,
+#      border = "white", col = "white", lwd = 2)
+# 
+# for (i in 1:length(couleurs)) {
+#   
+#   rect(x_start + x_inc * (i - 1), 
+#        y_start - y_inc, 
+#        x_start + x_inc * i, 
+#        y_start + y_inc,
+#        border = NA, col = couleurs[i])
+# }
+# 
+# text(x_start, y_start - y_inc / 1.5, "0.0", pos = 1, cex = 1)
+# text(x_start + x_inc * 5, y_start - y_inc / 1.5, "0.5", pos = 1, cex = 1)
+# text(x_start + x_inc * 10, y_start - y_inc / 1.5, "1.0", pos = 1, cex = 1)
+# 
+# text(x_start + x_inc * 5, y_start + y_inc / 1.5, 
+#      "Probability of protecting\nunprotected areas", pos = 3, cex = 1, font = 2)
 
 mtext("c", line = 0.75, side = 3, adj = 0, font = 2, cex = 1.2)
 
@@ -307,23 +307,44 @@ text(axes[axes$"side" == 3, c("x", "y")], axes[axes$"side" == 3, "text"],
 text(axes[axes$"side" == 4, c("x", "y")], axes[axes$"side" == 4, "text"], 
      pos = 4, xpd = TRUE, cex = 0.65, col = "#666666")
 
-rect(x_start, y_start - y_inc, x_start + x_inc * 10, y_start + y_inc,
-     border = "white", col = "white", lwd = 2)
-
-for (i in 1:length(couleurs)) {
-  
-  rect(x_start + x_inc * (i - 1), 
-       y_start - y_inc, 
-       x_start + x_inc * i, 
-       y_start + y_inc,
-       border = NA, col = couleurs[i])
-}
-
-text(x_start, y_start - y_inc / 1.5, "0.0", pos = 1, cex = 1)
-text(x_start + x_inc * 5, y_start - y_inc / 1.5, "0.5", pos = 1, cex = 1)
-text(x_start + x_inc * 10, y_start - y_inc / 1.5, "1.0", pos = 1, cex = 1)
-
-text(x_start + x_inc * 5, y_start + y_inc / 1.5, 
-     "Probability of protecting\nunprotected areas", pos = 3, cex = 1, font = 2)
+# rect(x_start, y_start - y_inc, x_start + x_inc * 10, y_start + y_inc,
+#      border = "white", col = "white", lwd = 2)
+# 
+# for (i in 1:length(couleurs)) {
+#   
+#   rect(x_start + x_inc * (i - 1), 
+#        y_start - y_inc, 
+#        x_start + x_inc * i, 
+#        y_start + y_inc,
+#        border = NA, col = couleurs[i])
+# }
+# 
+# text(x_start, y_start - y_inc / 1.5, "0.0", pos = 1, cex = 1)
+# text(x_start + x_inc * 5, y_start - y_inc / 1.5, "0.5", pos = 1, cex = 1)
+# text(x_start + x_inc * 10, y_start - y_inc / 1.5, "1.0", pos = 1, cex = 1)
+# 
+# text(x_start + x_inc * 5, y_start + y_inc / 1.5, 
+#      "Probability of protecting\nunprotected areas", pos = 3, cex = 1, font = 2)
 
 mtext("d", line = 0.75, side = 3, adj = 0, font = 2, cex = 1.2)
+
+
+
+par(mar = rep(0, 4), family = "Roboto")
+
+plot(0, type = "n", ann = FALSE, bty = "n", axes = FALSE)
+
+
+
+par(mar = rep(0, 4), family = "Roboto")
+
+plot(0, xlim = c(-0.025, 1.025), axes = FALSE, ylim = c(0.5, 2.05), type = "n", 
+     ann = FALSE, bty = "n")
+
+rect(0.00, 1, 0.045, 2, border = NA, col = "#313695")
+rect(0.33, 1, 0.375, 2, border = NA, col = "#a50026")
+rect(0.66, 1, 0.705, 2, col = NA, border = "#6ba249")
+
+text(0.05, 1.35, "Potential high\nconservation gains", pos = 4, cex = 1.3, font = 2)
+text(0.38, 1.35, "Unrealistic high\nconservation gains", pos = 4, cex = 1.3, font = 2)
+text(0.71, 1.45, "Current protected areas", pos = 4, cex = 1.3, font = 2)
