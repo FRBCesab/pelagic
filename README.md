@@ -1,9 +1,9 @@
 # pelagic
 
-:package: &nbsp;Research Compendium for Mouillot et al. 2021's paper
+Research compendium of the paper:
 
-<hr />
-
+> Mouillot D, Velez L, Albouy C _et al._ The socioeconomic and environmental niche of protected areas reveals global conservation gaps and opportunities. In revision 
+in **Nature Communications**.
 
 
 ## General
@@ -14,7 +14,7 @@ This repository is structured as follow:
 - :file_folder: &nbsp;`R/`: contains R functions developed for this project;
 - :file_folder: &nbsp;`man/`: contains R functions documentation;
 - :file_folder: &nbsp;`analyses/`: contains R scripts to setup project, run analyses, and make figures.
-
+- :file_folder: &nbsp;`figures/`: contains figures of the paper 
 
 
 ## Notes
