@@ -1,9 +1,8 @@
 # pelagic
 
-Research compendium of the paper:
+[![DOI](https://zenodo.org/badge/234053806.svg)](https://zenodo.org/doi/10.5281/zenodo.11183845)
 
-> Mouillot D, Velez L, Albouy C _et al._ The socioeconomic and environmental niche of protected areas reveals global conservation gaps and opportunities. In revision 
-in **Nature Communications**.
+Code and data used in the paper **The socioeconomic and environmental niche of protected areas reveals global conservation gaps and opportunities** (Mouillot et al. 2024) published in **Nature Communications**.
 
 
 ## General
